@@ -1,18 +1,15 @@
-# Use official Node.js image as the base
-FROM node:18
+FROM node:20
 
-# Set working directory
 WORKDIR /app
 
-# Install dependencies
-COPY package.json package-lock.json* ./
+COPY package*.json ./
+
 RUN npm install
 
-# Copy the rest of the source code
 COPY . .
 
-# Expose Next.js default dev port
+ENV WATCHPACK_POLLING=true
+
 EXPOSE 3000
 
-# Start Next.js in development mode with hot-reloading
 CMD ["npm", "run", "dev"]
