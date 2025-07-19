@@ -23,6 +23,7 @@ export default function GoogleButton() {
 	useEffect(() => {
 		if (!window.google || !window.google.accounts || !window.google.accounts.id) return;
 		console.log("Origin:", window.location.origin);
+		console.log("ID Token", process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID);
 		window.google.accounts.id.initialize({
 			client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,
 			callback: (response: { credential: string }) => {
