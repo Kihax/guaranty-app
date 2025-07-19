@@ -1,13 +1,9 @@
-
 services:
-  nextjs:
-    build: .
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
-      - '3000:3000'
-    volumes:
-      - .:/app
-      - /app/node_modules
+      - "3000:3000"
     environment:
-      - NODE_ENV=development
-      - WATCHPACK_POLLING=true
-    command: npm run dev
+      - NODE_ENV=production

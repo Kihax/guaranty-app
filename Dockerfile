@@ -1,15 +1,21 @@
+# Use official Node.js image
 FROM node:20
 
+# Create app directory
 WORKDIR /app
 
+# Install dependencies
 COPY package*.json ./
-
 RUN npm install
 
+# Copy the rest of the code
 COPY . .
 
-ENV WATCHPACK_POLLING=true
+# Build for production
+RUN npm run build
 
+# Expose the port
 EXPOSE 3000
 
-CMD ["npm", "run", "dev"]
+# Default command (can be overridden by docker-compose.override.yml)
+CMD ["npm", "run", "start"]
