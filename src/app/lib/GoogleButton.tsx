@@ -41,6 +41,7 @@ export default function GoogleButton() {
 	}, []);
 
 	const handleClick = () => {
+		console.log("Google Button Clicked");
 		if (window.google?.accounts?.id) {
 			window.google.accounts.id.prompt();
 		}
