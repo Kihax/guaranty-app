@@ -1,6 +1,11 @@
 import { createCipheriv, createDecipheriv, randomBytes } from 'crypto';
 
 const algorithm = 'aes-256-cbc';
+
+if (!process.env.NEXT_ENCRYPTION_KEY) {
+  throw new Error('Encryption key is missing in environment variables');
+}
+
 const key = Buffer.from(process.env.NEXT_ENCRYPTION_KEY, 'hex'); // 32 bytes
 const iv = randomBytes(16); // 16 bytes IV
 

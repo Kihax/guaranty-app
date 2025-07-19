@@ -1,16 +1,31 @@
 "use client";
 
 import Image from "next/image";
-import Script from "next/script";
 import { useEffect } from "react";
+
+declare global {
+  interface Window {
+	google: {
+	  accounts?: {
+		id?: {
+		  initialize: (options: {
+			client_id: string;
+			callback: (response: { credential: string }) => void;
+		  }) => void;
+		  prompt: () => void;
+		};
+	  };
+	};
+  }
+}
 
 export default function GoogleButton() {
 	useEffect(() => {
-		if (!window.google) return;
-        console.log("Origin:", window.location.origin);
+		if (!window.google || !window.google.accounts || !window.google.accounts.id) return;
+		console.log("Origin:", window.location.origin);
 		window.google.accounts.id.initialize({
 			client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,
-			callback: (response) => {
+			callback: (response: { credential: string }) => {
 				console.log("ID Token", response.credential);
 
 				fetch(

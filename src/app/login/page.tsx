@@ -4,13 +4,9 @@ import "../globals.css";
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { serialize } from "cookie";
-import type { NextApiRequest, NextApiResponse } from "next";
-import { encrypt } from "@/app/lib/session";
 import GoogleButton from "../lib/GoogleButton";
-import Script from "next/script";
 
-export default function Login(req: NextApiRequest, res: NextApiResponse) {
+export default function Login() {
 	const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
@@ -20,7 +16,7 @@ export default function Login(req: NextApiRequest, res: NextApiResponse) {
 		{}
 	);
 
-	const handleSubmit = async (e) => {
+	const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		setFieldErrors({}); // reset erreurs avant chaque soumission
 
@@ -48,8 +44,9 @@ export default function Login(req: NextApiRequest, res: NextApiResponse) {
 			} else if (res.status === 422) {
 				if (data.errors && Array.isArray(data.errors)) {
 					// construire un objet avec field => message
-					const errorsObj = {};
-					data.errors.forEach((err) => {
+					const errorsObj: { [key: string]: string } = {};
+					type FieldError = { field: string; message: string };
+					data.errors.forEach((err: FieldError) => {
 						if (err.field) {
 							errorsObj[err.field] = err.message;
 						}
@@ -75,7 +72,7 @@ export default function Login(req: NextApiRequest, res: NextApiResponse) {
 			
 			<div className="xl:w-1/2 md:w-2/3 w-full h-screen bg-cyan-50 p-10 flex flex-col justify-center">
 				<div className="sm:mx-auto sm:w-full sm:max-w-sm">
-					<img
+					<Image
 						alt="Your Company"
 						src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
 						className="mx-auto h-10 w-auto"
