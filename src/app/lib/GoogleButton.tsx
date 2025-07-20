@@ -1,6 +1,6 @@
-import { useEffect, useRef, FC } from "react";
+import { useEffect, useState } from "react";
 
-interface ButtonGoogleProps {
+interface ButtonGoogleCustomProps {
   onSuccess: (tokenId: string) => void;
   onError?: (error: Error) => void;
 }
@@ -14,28 +14,20 @@ declare global {
             client_id: string;
             callback: (response: { credential?: string }) => void;
           }) => void;
-          renderButton: (
-            element: HTMLElement,
-            options?: {
-              theme?: "outline" | "filled_blue" | "filled_black";
-              size?: "small" | "medium" | "large";
-              type?: "standard" | "icon" | "text" | "button";
-              shape?: "rectangular" | "pill" | "circle" | "square";
-              text?: "signin_with" | "signup_with" | "continue_with" | "signup_with";
-              logo_alignment?: "left" | "center";
-              width?: string | number;
-              locale?: string;
-            }
-          ) => void;
-          prompt?: () => void;
+          prompt: () => void;
+          cancel: () => void;
+          revoke: (token: string, callback: (done: boolean) => void) => void;
         };
       };
     };
   }
 }
 
-const GoogleButton: FC<ButtonGoogleProps> = ({ onSuccess, onError }) => {
-  const divRef = useRef<HTMLDivElement>(null);
+export default function ButtonGoogleCustom({
+  onSuccess,
+  onError,
+}: ButtonGoogleCustomProps) {
+  const [gisLoaded, setGisLoaded] = useState(false);
 
   useEffect(() => {
     const script = document.createElement("script");
@@ -45,8 +37,8 @@ const GoogleButton: FC<ButtonGoogleProps> = ({ onSuccess, onError }) => {
     document.body.appendChild(script);
 
     script.onload = () => {
-      if (!window.google || !divRef.current) {
-        onError?.(new Error("Google Identity Services script not loaded or div missing"));
+      if (!window.google) {
+        onError?.(new Error("Google Identity Services script not loaded"));
         return;
       }
 
@@ -56,18 +48,12 @@ const GoogleButton: FC<ButtonGoogleProps> = ({ onSuccess, onError }) => {
           if (response.credential) {
             onSuccess(response.credential);
           } else {
-            onError?.(new Error("No credential returned from Google"));
+            onError?.(new Error("No credential received"));
           }
         },
       });
 
-      window.google.accounts.id.renderButton(divRef.current, {
-        theme: "outline",
-        size: "large",
-      });
-
-      // Optionnel : afficher automatiquement la popup de connexion
-      // window.google.accounts.id.prompt();
+      setGisLoaded(true);
     };
 
     return () => {
@@ -75,7 +61,31 @@ const GoogleButton: FC<ButtonGoogleProps> = ({ onSuccess, onError }) => {
     };
   }, [onSuccess, onError]);
 
-  return <div ref={divRef} />;
-};
+  const handleClick = () => {
+    if (!window.google || !gisLoaded) {
+      onError?.(new Error("Google Identity Services not loaded"));
+      return;
+    }
 
-export default GoogleButton;
+    // Lance la popup de connexion Google manuellement
+    window.google.accounts.id.prompt();
+  };
+
+  return (
+    <button
+      onClick={handleClick}
+      style={{
+        padding: "10px 20px",
+        backgroundColor: "#4285F4",
+        color: "white",
+        border: "none",
+        borderRadius: 4,
+        cursor: "pointer",
+        fontSize: 16,
+        fontWeight: "bold",
+      }}
+    >
+      Se connecter avec Google
+    </button>
+  );
+}
