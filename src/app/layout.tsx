@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { Geist, Geist_Mono } from "next/font/google";
-import Script from "next/script";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",

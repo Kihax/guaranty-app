@@ -7,8 +7,17 @@ import { useEffect, useRef, useState } from "react";
 type Gapi = {
   load: (api: string, callback: () => void) => void;
   auth2: {
-    init: (params: { client_id: string; cookiepolicy: string }) => any;
-  };
+    init: (params: { client_id: string; cookiepolicy: string }) => unknown;
+	attachClickHandler: (
+	  element: HTMLButtonElement,
+	  options: object,
+	  onSuccess: (googleUser: {
+        getBasicProfile: () => { getName: () => string };
+        getAuthResponse: () => { id_token: string };
+      }) => void,
+	  onFailure: (error: { error: string }) => void
+
+	);
 };
 
 declare global {
