@@ -1,25 +1,22 @@
-import { createCipheriv, createDecipheriv, randomBytes } from "crypto";
+// lib/session.ts
+import { SessionOptions, getIronSession } from "iron-session";
+import { NextApiRequest, NextApiResponse } from "next";
 
-const algorithm = "aes-256-cbc";
-const encryptionKey = process.env.NEXT_ENCRYPTION_KEY;
-if (!encryptionKey) {
-	throw new Error("NEXT_ENCRYPTION_KEY environment variable is not set");
-}
-const key = Buffer.from(encryptionKey, "hex"); // 32 bytes
-const iv = randomBytes(16); // 16 bytes IV
+export type UserSession = {
+  id?: string;
+  email?: string;
+  token?: string;
+};
 
-export function encrypt(text: string) {
-	const cipher = createCipheriv(algorithm, key, iv);
-	let encrypted = cipher.update(text, "utf8", "hex");
-	encrypted += cipher.final("hex");
-	return iv.toString("hex") + ":" + encrypted;
-}
+export const sessionOptions: SessionOptions = {
+  password: process.env.SESSION_SECRET as string,
+  cookieName: "guaranty_session",
+  cookieOptions: {
+    secure: process.env.NODE_ENV === "production",
+  },
+};
 
-export function decrypt(encryptedText: string) {
-	const [ivHex, encrypted] = encryptedText.split(":");
-	const iv = Buffer.from(ivHex, "hex");
-	const decipher = createDecipheriv(algorithm, key, iv);
-	let decrypted = decipher.update(encrypted, "hex", "utf8");
-	decrypted += decipher.final("utf8");
-	return decrypted;
+// helper pour accéder à la session depuis une API route
+export function getSession(req: NextApiRequest, res: NextApiResponse) {
+  return getIronSession<UserSession>(req, res, sessionOptions);
 }

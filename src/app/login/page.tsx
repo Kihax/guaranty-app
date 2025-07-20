@@ -189,7 +189,38 @@ export default function Login() {
 					</p>
 
 					<div className="mt-6">
-						<GoogleButton onSuccess={(tokenId) => console.log(tokenId)} onError={(error) => console.error(error)} />
+						<GoogleButton onSuccess={(tokenId) => {
+							fetch(`${apiUrl}/auth/google`, {
+								method: "POST",
+								headers: {
+									"Content-Type": "application/json",
+								},
+								body: JSON.stringify({ tokenId }),
+							})
+								.then((res) => res.json())
+								.then((data) => {
+									if (data.token) {
+										fetch("/api/login", {
+											method: "POST",
+											headers: {
+												"Content-Type": "application/json",
+											},
+											body: JSON.stringify({
+												token: data.token,
+											}),
+										});
+									} else {
+										setFieldErrors({
+											general: data.message || "Login failed",
+										});
+									}
+								})
+								.catch((error) => {
+									setFieldErrors({
+										general: error.message || "Network error",
+									});
+								});
+						}} onError={(error) => console.error(error)} />
 					</div>
 				</div>
 			</div>
