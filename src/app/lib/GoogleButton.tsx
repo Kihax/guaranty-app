@@ -8,16 +8,16 @@ type Gapi = {
   load: (api: string, callback: () => void) => void;
   auth2: {
     init: (params: { client_id: string; cookiepolicy: string }) => unknown;
-	attachClickHandler: (
-	  element: HTMLButtonElement,
-	  options: object,
-	  onSuccess: (googleUser: {
+    attachClickHandler: (
+      element: HTMLButtonElement,
+      options: object,
+      onSuccess: (googleUser: {
         getBasicProfile: () => { getName: () => string };
         getAuthResponse: () => { id_token: string };
       }) => void,
-	  onFailure: (error: { error: string }) => void
-
-	);
+      onFailure: (error: { error: string }) => void
+    ) => void
+  };
 };
 
 declare global {
@@ -37,9 +37,9 @@ export default function GoogleButton() {
         const auth2 = window.gapi?.auth2.init({
           client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,
           cookiepolicy: "single_host_origin",
-        });
+        }) as typeof window.gapi.auth2 | undefined;
 
-        if (googleBtnRef.current && auth2) {
+        if (googleBtnRef.current && auth2 && typeof auth2.attachClickHandler === "function") {
           auth2.attachClickHandler(
             googleBtnRef.current,
             {},
