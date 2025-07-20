@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 
 declare global {
   interface Window {
@@ -19,43 +19,71 @@ declare global {
         };
       };
     };
+    gapi?: Gapi;
   }
 }
 
+interface GapiAuth2 {
+  init: (params: { client_id: string; cookiepolicy: string }) => unknown;
+  attachClickHandler: (
+    element: HTMLElement,
+    options: object,
+    onSuccess: (googleUser: unknown) => void,
+    onFailure: (error: unknown) => void
+  ) => void;
+}
+
+interface Gapi {
+  load: (api: string, callback: () => void) => void;
+  auth2: GapiAuth2;
+}
+
+declare const gapi: Gapi;
+
+
 export default function GoogleButton() {
+	const [userName, setUserName] = useState<string | null>(null);
+  const googleBtnRef = useRef<HTMLButtonElement>(null);
+
   useEffect(() => {
-    if (!window.google?.accounts?.id) return;
+    const start = () => {
+      gapi.load("auth2", () => {
+        const auth2 = gapi.auth2.init({
+          client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,
+          cookiepolicy: "single_host_origin",
+        }) as GapiAuth2;
+        if (googleBtnRef.current) {
+          auth2.attachClickHandler(
+            googleBtnRef.current,
+            {},
+            (googleUser: unknown) => {
+              // Type assertion for googleUser to access getBasicProfile
+              const profile = (googleUser as { getBasicProfile: () => { getName: () => string } }).getBasicProfile();
+              setUserName(profile.getName());
+            },
+            (error: unknown) => {
+              console.error(JSON.stringify(error, null, 2));
+            }
+          );
+        }
+      });
+    };
 
-    window.google.accounts.id.initialize({
-      client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,
-      callback: (response: { credential: string }) => {
-        console.log("ID Token", response.credential);
-        fetch(process.env.NEXT_PUBLIC_API_URL + "/auth/login-with-google", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ idToken: response.credential }),
-        });
-      },
-      auto_select: false,              // éviter sélection auto, pour test
-      context: "signin",               // moment du prompt
-      use_fedcm_for_prompt: true,     // important pour FedCM
-    });
-
-    // NE PAS appeler prompt() ici automatiquement,
-    // laisse l'utilisateur cliquer sur le bouton
-  }, []);
-
-  const handleClick = () => {
-    console.log("Google Button Clicked");
-    if (window.google?.accounts?.id) {
-      window.google.accounts.id.prompt(); // va afficher le One Tap si possible
+    // Charger le script gapi si ce n'est pas encore fait
+    if (!window.gapi) {
+      const script = document.createElement("script");
+      script.src = "https://apis.google.com/js/api.js";
+      script.onload = start;
+      document.body.appendChild(script);
+    } else {
+      start();
     }
-  };
+  }, []);
 
   return (
     <button
       type="button"
-      onClick={handleClick}
+      ref={googleBtnRef}
       className="flex w-full items-center justify-center gap-2 rounded-md bg-white px-4 py-2 text-gray-900 border border-gray-300 hover:bg-gray-50 focus:outline-indigo-600 focus:outline-2 focus:-outline-offset-2 sm:text-sm font-semibold"
     >
       <Image

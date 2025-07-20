@@ -26,10 +26,12 @@ export default function RootLayout({
 	return (
 		<html lang="en">
       <head>
+	  	<meta name="google-signin-client_id" content="168035031127-ds3li8n2opm57a57bqd3h9a9lsrecuma.apps.googleusercontent.com"></meta>
         <Script
           src="https://accounts.google.com/gsi/client"
           strategy="beforeInteractive"
         />
+		<Script src="https://apis.google.com/js/api:client.js" />
       </head>
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
