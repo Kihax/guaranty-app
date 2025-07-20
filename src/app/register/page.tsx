@@ -4,9 +4,9 @@ import "../globals.css";
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import GoogleButton from "../lib/GoogleButton";
 
 export default function Register() {
-	const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 
@@ -20,13 +20,16 @@ export default function Register() {
 		setFieldErrors({}); // reset erreurs avant chaque soumission
 
 		try {
-			const res = await fetch(`${apiUrl}/auth/login`, {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({ email, password }),
-			});
+			const res = await fetch(
+				`${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
+				{
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({ email, password }),
+				}
+			);
 
 			const data = await res.json();
 
@@ -37,11 +40,13 @@ export default function Register() {
 				if (data.errors && Array.isArray(data.errors)) {
 					// construire un objet avec field => message
 					const errorsObj: { [key: string]: string } = {};
-					data.errors.forEach((err: { field: string; message: string }) => {
-						if (err.field) {
-							errorsObj[err.field] = err.message;
+					data.errors.forEach(
+						(err: { field: string; message: string }) => {
+							if (err.field) {
+								errorsObj[err.field] = err.message;
+							}
 						}
-					});
+					);
 					setFieldErrors(errorsObj);
 				} else {
 					setFieldErrors({
@@ -183,8 +188,12 @@ export default function Register() {
 									htmlFor="comments"
 									className="font-medium text-gray-900"
 								>
-									Accept <Link href="/terms" className="text-indigo-600 hover:text-indigo-500">
-										 terms and conditions
+									Accept{" "}
+									<Link
+										href="/terms"
+										className="text-indigo-600 hover:text-indigo-500"
+									>
+										terms and conditions
 									</Link>
 								</label>
 							</div>
@@ -218,20 +227,49 @@ export default function Register() {
 					</p>
 
 					<div className="mt-6">
-						<Link
-							href="/login"
-							className="flex w-full rounded-md bg-white px-3 py-2 justify-center text-gray-900 outline-1 outline-offset-1 outline-gray-300  placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-						>
-							<Image
-								src="icons8-google.svg"
-								alt="Google Icon"
-								width={24}
-								height={24}
-							/>
-							<span className="ml-2 text-gray-900 font-semibold">
-								Continue with Google
-							</span>
-						</Link>
+						<GoogleButton
+							onSuccess={(tokenId) => {
+								fetch(
+									`${process.env.NEXT_PUBLIC_API_URL}/auth/google`,
+									{
+										method: "POST",
+										headers: {
+											"Content-Type": "application/json",
+										},
+										body: JSON.stringify({ tokenId }),
+									}
+								)
+									.then((res) => res.json())
+									.then((data) => {
+										if (data.token) {
+											fetch("/api/login", {
+												method: "POST",
+												headers: {
+													"Content-Type":
+														"application/json",
+												},
+												body: JSON.stringify({
+													token: data.token,
+												}),
+											});
+										} else {
+											setFieldErrors({
+												general:
+													data.message ||
+													"Login failed",
+											});
+										}
+									})
+									.catch((error) => {
+										setFieldErrors({
+											general:
+												error.message ||
+												"Network error",
+										});
+									});
+							}}
+							onError={(error) => console.error(error)}
+						/>
 					</div>
 				</div>
 			</div>

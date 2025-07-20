@@ -189,7 +189,7 @@ export default function Login() {
 
 					<div className="mt-6">
 						<GoogleButton onSuccess={(tokenId) => {
-							fetch(`${apiUrl}/auth/google`, {
+							fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/google`, {
 								method: "POST",
 								headers: {
 									"Content-Type": "application/json",
