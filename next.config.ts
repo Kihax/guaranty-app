@@ -14,7 +14,7 @@ const nextConfig = {
   async headers() {
     return [
       {
-        source: "/(.*)",
+        source: "/(.*)", // applique à toutes les routes
         headers: [
           {
             key: "Content-Security-Policy",
