@@ -27,9 +27,11 @@ export default function ButtonGoogleCustom({
   onSuccess,
   onError,
 }: ButtonGoogleCustomProps) {
-  const tokenClientRef = useRef<ReturnType<
-    typeof window.google.accounts.oauth2.initTokenClient
-  > | null>(null);
+  type InitTokenClientType = {
+    requestAccessToken: () => void;
+  };
+
+  const tokenClientRef = useRef<InitTokenClientType | null>(null);
 
   useEffect(() => {
     const script = document.createElement("script");
