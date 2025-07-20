@@ -7,7 +7,6 @@ import Link from "next/link";
 import GoogleButton from "../lib/GoogleButton";
 
 export default function Login() {
-	const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 
@@ -21,7 +20,7 @@ export default function Login() {
 		setFieldErrors({}); // reset erreurs avant chaque soumission
 
 		try {
-			const res = await fetch(`${apiUrl}/auth/login`, {
+			const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login-with-google`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
