@@ -230,7 +230,7 @@ export default function Register() {
 						<GoogleButton
 							onSuccess={(tokenId) => {
 								fetch(
-									`${process.env.NEXT_PUBLIC_API_URL}/auth/google`,
+									`${process.env.NEXT_PUBLIC_API_URL}/auth/login-with-google`,
 									{
 										method: "POST",
 										headers: {
