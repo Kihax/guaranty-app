@@ -63,8 +63,10 @@ export default function Register() {
 			<div className="xl:w-1/2 md:w-2/3 w-full h-screen bg-cyan-50 p-10 flex flex-col justify-center">
 				<div className="sm:mx-auto sm:w-full sm:max-w-sm">
 					<Image
+						width={500}
+						height={500}
 						alt="Your Company"
-						src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
+						src="/logo.png"
 						className="mx-auto h-10 w-auto"
 					/>
 					<h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
