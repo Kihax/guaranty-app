@@ -6,6 +6,8 @@ export type UserSession = {
   id?: string;
   email?: string;
   token?: string;
+  fullName?: string;
+  emailVerified?: boolean;
 };
 
 export const sessionOptions: SessionOptions = {
