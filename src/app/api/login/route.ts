@@ -25,6 +25,8 @@ export async function POST(request: Request) {
       },
     })
 
+	console.log('User response:', userResponse);
+
     if (!userResponse.ok) {
       throw new Error('Failed to fetch user')
     }
