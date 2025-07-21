@@ -189,6 +189,7 @@ export default function Login() {
 
 					<div className="mt-6">
 						<GoogleButton onSuccess={(tokenId) => {
+							console.log(tokenId)
 							fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login-with-google`, {
 								method: "POST",
 								headers: {
@@ -198,6 +199,7 @@ export default function Login() {
 							})
 								.then((res) => res.json())
 								.then((data) => {
+									console.log(data)
 									if (data.token) {
 										fetch("/api/login", {
 											method: "POST",
