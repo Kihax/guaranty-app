@@ -208,6 +208,8 @@ export default function Login() {
 											body: JSON.stringify({
 												token: data.token,
 											}),
+										}).then((res) => {
+											console.log("Login successful", res)
 										});
 									} else {
 										setFieldErrors({

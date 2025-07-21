@@ -2,8 +2,16 @@ import { NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 
 export async function POST(request: Request) {
-  const body = await request.json()
-  const { token } = body
+  let body;
+
+  try {
+    // Try to parse JSON body, but catch if empty or invalid
+    body = await request.json();
+  } catch {
+    // If no body or invalid JSON, respond with error
+    return NextResponse.json({ message: "Request body missing or invalid JSON" }, { status: 400 });
+  }
+  const { token } = body || {};
 
   if (!token) {
     return NextResponse.json({ message: 'Token is missing' }, { status: 400 })
