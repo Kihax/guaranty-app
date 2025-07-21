@@ -15,7 +15,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 		return res.status(400).json({ message: "Token is missing" });
 	}
 
-	fetch(`${process.env.NEXT_PUBLIC_API_URL}/user`, {
+	fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/user`, {
 		method: "GET",
 		headers: {
 			Authorization: `Bearer ${token}`,
