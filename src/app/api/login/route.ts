@@ -13,6 +13,8 @@ export async function POST(request: Request) {
   }
   const { token } = body || {};
 
+  console.log(token)
+
   if (!token) {
     return NextResponse.json({ message: 'Token is missing' }, { status: 400 })
   }
