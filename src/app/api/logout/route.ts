@@ -41,7 +41,7 @@ export async function GET(request: Request, response: Response) {
 		cookieStore.delete("fullName");
 		cookieStore.delete("emailVerified");
 
-		NextResponse.redirect(new URL('/', process.env.NEXT_PUBLIC_APP_URL));
+		return NextResponse.redirect(new URL('/', process.env.NEXT_PUBLIC_APP_URL));
 	} catch (error: unknown) {
 		const message =
 			error instanceof Error
