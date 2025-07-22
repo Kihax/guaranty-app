@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 
 export async function GET(request: Request, response: Response) {
 	const cookieStore = await cookies();
@@ -42,8 +41,7 @@ export async function GET(request: Request, response: Response) {
 		cookieStore.delete("fullName");
 		cookieStore.delete("emailVerified");
 
-		response.writeHead(302, { Location: "/login" });
-		response.end();
+		NextResponse.redirect(new URL('/', process.env.NEXT_PUBLIC_APP_URL));
 	} catch (error: unknown) {
 		const message =
 			error instanceof Error
