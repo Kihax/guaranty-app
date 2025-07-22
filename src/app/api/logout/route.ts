@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
-import { redirect } from 'next/navigation'
+import { redirect } from "next/navigation";
 
-export async function GET(request: Request) {
+export async function GET(request: Request, response: Response) {
 	const cookieStore = await cookies();
 
 	const token = cookieStore.get("token")?.value;
@@ -37,13 +37,13 @@ export async function GET(request: Request) {
 			console.error("Error during logout:", error);
 		}
 		cookieStore.delete("token");
-        cookieStore.delete("id");
-        cookieStore.delete("email");
-        cookieStore.delete("fullName");
-        cookieStore.delete("emailVerified");
-        redirect('/login'); // Redirect to login page after logout
+		cookieStore.delete("id");
+		cookieStore.delete("email");
+		cookieStore.delete("fullName");
+		cookieStore.delete("emailVerified");
 
-		return NextResponse.json({ message: "Logout successful" });
+		response.writeHead(302, { Location: "/login" });
+		response.end();
 	} catch (error: unknown) {
 		const message =
 			error instanceof Error
