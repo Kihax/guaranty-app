@@ -32,6 +32,7 @@ export async function GET(request: Request) {
         console.error('Error during logout:', error);
     }
     const cookieStore = await cookies();
+    console.log('Cookie store before deletion:', cookieStore.getAll());
     cookieStore.delete('guaranty_session');
 
 

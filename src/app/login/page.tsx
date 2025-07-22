@@ -5,10 +5,13 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import GoogleButton from "../lib/GoogleButton";
+import { useRouter } from 'next/router';
+
 
 export default function Login() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const router = useRouter();
 
 	// erreurs par champ
 	const [fieldErrors, setFieldErrors] = useState<{ [key: string]: string }>(
@@ -40,6 +43,8 @@ export default function Login() {
 					},
 					body: JSON.stringify({ token }),
 				});
+
+				router.replace("/dashboard"); // Redirect to dashboard after successful login
 			} else if (res.status === 422) {
 				if (data.errors && Array.isArray(data.errors)) {
 					// construire un objet avec field => message
