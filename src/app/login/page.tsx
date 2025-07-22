@@ -215,6 +215,7 @@ export default function Login() {
 											}),
 										}).then((res) => {
 											console.log("Login successful", res)
+											router.replace("/dashboard"); // Redirect to dashboard after successful login
 										});
 									} else {
 										setFieldErrors({
