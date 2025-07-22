@@ -11,9 +11,7 @@ export async function POST(request: Request) {
     // If no body or invalid JSON, respond with error
     return NextResponse.json({ message: "Request body missing or invalid JSON" }, { status: 400 });
   }
-  const { token } = body || {};
-
-  console.log(token)
+  const { token } = body.token || {};
 
   if (!token) {
     return NextResponse.json({ message: 'Token is missing' }, { status: 400 })
