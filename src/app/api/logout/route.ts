@@ -3,7 +3,9 @@ import { cookies } from 'next/headers'
 
 export async function GET(request: Request) {
 
-  const token = (await cookies()).get("guaranty_session");
+    const cookieStore = await cookies();
+
+  const token = (await cookies()).get("token");
 
   console.log("Token in logout:", token);
 
