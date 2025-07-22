@@ -5,6 +5,8 @@ export async function GET(request: Request) {
 
   const token = (await cookies()).get("guaranty_session");
 
+  console.log("Token in logout:", token);
+
   try {
     const userResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/user`, {
       method: 'GET',
