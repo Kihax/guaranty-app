@@ -1,18 +1,6 @@
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 export function middleware(req: NextRequest) {
-  const token = req.cookies.get("guaranty_session");
-
-  console.log("Token in middleware:", token);
-
-  if (!token && req.nextUrl.pathname.startsWith("/dashboard")) {
-    return NextResponse.redirect(new URL("/login", req.url));
-  }
-
+  console.log("🔥 Middleware is running!");
   return NextResponse.next();
 }
-
-export const config = {
-  matcher: ["/dashboard/:path*"],
-};
