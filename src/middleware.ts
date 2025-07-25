@@ -4,11 +4,13 @@ import type { NextRequest } from 'next/server';
 export function middleware(request: NextRequest) {
   // Exemple : redirection si l'utilisateur n'est pas connecté
   const isAuthenticated = request.cookies.get('token');
-  if (!isAuthenticated && request.nextUrl.pathname.startsWith('/dashboard')) {
+  if (!isAuthenticated && (request.nextUrl.pathname.startsWith('/dashboard') || request.nextUrl.pathname === '/api/logout')) {
     return NextResponse.redirect(new URL('/login', request.url));
+  }else if (isAuthenticated && request.nextUrl.pathname === '/login') {
+    return NextResponse.redirect(new URL('/dashboard', request.url));
   }
 }
 
 export const config = {
-  matcher: ['/dashboard/:path*'], // S’applique uniquement aux routes /dashboard/*
+  matcher: ['/dashboard/:path*', '/api/logout', '/login'], // S’applique uniquement aux routes /dashboard/*
 };
