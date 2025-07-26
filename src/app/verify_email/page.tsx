@@ -4,13 +4,13 @@ import React, { useEffect } from "react";
 
 export default function VerifyEmail() {
 	const router = useRouter();
-
-	async function verifyEmail() {
-		// Check if the user is logged in by looking for a token in cookies
-		const token = document.cookie
+	const token = document.cookie
 			.split("; ")
 			.find((row) => row.startsWith("token="))
 			?.split("=")[1];
+
+	async function verifyEmail() {
+		// Check if the user is logged in by looking for a token in cookies
 		if (!token) { // If no token is found, redirect to login
 			router.push("/login");
 			return;
@@ -52,6 +52,18 @@ export default function VerifyEmail() {
 		<div>
 			<h1>Verify your email</h1>
 			<p>Please check your inbox for a verification email.</p>
+
+			<button type="button" onClick={() => {
+				fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/resend-verification-email`, {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${token}`,
+					},
+				});
+			}}>
+				Re-send verification email
+			</button>
 		</div>
 	);
 }
