@@ -74,7 +74,7 @@ export default function Login() {
 	return (
 		<section className="bg-gray-100 flex min-h-screen items-center justify-center overflow-hidden">
 			
-			<div className="xl:w-1/2 md:w-2/3 w-full h-screen md:p-10 flex flex-col justify-center">
+			<div className="xl:w-1/2 md:w-2/3 w-full h-screen p-10 flex flex-col justify-center">
 				<div className="sm:mx-auto sm:w-full sm:max-w-sm">
 					<Image
 						alt="Your Company"
@@ -233,9 +233,9 @@ export default function Login() {
 				</div>
 			</div>
 
-			<div className="xl:w-1/2 md:w-1/3 w-0 py-5 xl:px-5 px-2 h-screen ">
+			<div className="xl:w-1/2 md:w-1/3 w-0 py-5 xl:pl-5 md:pl-2 h-screen ">
 				<Image
-					className="h-full w-full object-cover  rounded-2xl"
+					className="h-full w-full object-cover  rounded-l-2xl"
 					src="/login2.avif"
 					alt="Cloud with docs"
 					width={900}
