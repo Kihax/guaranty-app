@@ -74,7 +74,7 @@ export default function Login() {
 	return (
 		<section className="bg-gray-100 flex min-h-screen items-center justify-center overflow-hidden">
 			
-			<div className="xl:w-1/2 md:w-2/3 w-full h-screen bg-cyan-50 p-10 flex flex-col justify-center">
+			<div className="xl:w-1/2 md:w-2/3 w-full h-screen md:p-10 flex flex-col justify-center">
 				<div className="sm:mx-auto sm:w-full sm:max-w-sm">
 					<Image
 						alt="Your Company"
