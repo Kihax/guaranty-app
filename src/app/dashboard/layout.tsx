@@ -2,7 +2,7 @@
 
 import "../globals.css";
 
-import { use, useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Dialog, DialogPanel, PopoverGroup } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
@@ -16,12 +16,15 @@ export default function RootLayout({
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 	const [fullName, setFullName] = useState<string | null>(null);
 
-	setFullName(
-		document.cookie
-			.split("; ")
-			.find((row) => row.startsWith("fullName="))
-			?.split("=")[1] ?? null
-	);
+	useEffect(() => {
+		const name =
+			document.cookie
+				.split("; ")
+				.find((row) => row.startsWith("fullName="))
+				?.split("=")[1] ?? null;
+
+		setFullName(name);
+	}, []);
 
 	return (
 		<>
