@@ -7,7 +7,7 @@ export function middleware(request: NextRequest) {
   const isEmailVerified = request.cookies.get('emailVerified')?.value === 'true';
 
   if(isAuthenticated && !isEmailVerified) {
-    return NextResponse.redirect(new URL('/verify-email', request.url));
+    return NextResponse.redirect(new URL('/verify_email', request.url));
   }
 
   if (!isAuthenticated && (request.nextUrl.pathname.startsWith('/dashboard') || request.nextUrl.pathname === '/api/logout')) {
