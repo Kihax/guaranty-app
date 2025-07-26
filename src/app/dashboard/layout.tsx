@@ -16,16 +16,12 @@ export default function RootLayout({
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 	const [fullName, setFullName] = useState<string | null>(null);
 
-	useEffect(() => {
-		const name = document.cookie
+	setFullName(
+		document.cookie
 			.split("; ")
 			.find((row) => row.startsWith("fullName="))
-			?.split("=")[1];
-
-		if (name) {
-			setFullName(name); // Update state with full name
-		}
-	});
+			?.split("=")[1] ?? null
+	);
 
 	return (
 		<>
