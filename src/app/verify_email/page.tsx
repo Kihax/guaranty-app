@@ -4,12 +4,15 @@ import React, { useEffect } from "react";
 
 export default function VerifyEmail() {
 	const router = useRouter();
-	const token = document.cookie
-			.split("; ")
-			.find((row) => row.startsWith("token="))
-			?.split("=")[1] || null; // Get the token from cookies
+	const [token, setToken] = React.useState<string | null>(null);
+	
 
 	async function verifyEmail() {
+		setToken(document.cookie
+			.split("; ")
+			.find((row) => row.startsWith("token="))
+			?.split("=")[1] || null); // Get the token from cookies
+
 		// Check if the user is logged in by looking for a token in cookies
 		if (!token) { // If no token is found, redirect to login
 			router.push("/login");
