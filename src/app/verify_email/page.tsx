@@ -13,9 +13,11 @@ export default function VerifyEmail() {
 			.find((row) => row.startsWith("token="))
 			?.split("=")[1] || null); // Get the token from cookies
 
+		console.log(token)
+
 		// Check if the user is logged in by looking for a token in cookies
 		if (!token) { // If no token is found, redirect to login
-			router.push("/login");
+			//router.push("/login");
 			return;
 		}
 		const response = await fetch( // Fetching user data to check if email is verified
@@ -28,8 +30,10 @@ export default function VerifyEmail() {
 			}
 		);
 
+		console.log(response)
+
 		if (!response.ok) { // user isn't well logged in
-			router.push("/api/logout");
+			//router.push("/api/logout");
 			return;
 		}
 
@@ -43,7 +47,7 @@ export default function VerifyEmail() {
 				},
 			});
 
-			router.push("/dashboard");
+			//router.push("/dashboard");
 		}
 	}
 
