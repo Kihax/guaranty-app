@@ -7,7 +7,7 @@ export default function DashboardPage() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/items/get`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/items/get`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
