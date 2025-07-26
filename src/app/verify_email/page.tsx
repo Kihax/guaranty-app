@@ -56,8 +56,8 @@ export default function VerifyEmail() {
 			<h1>Verify your email</h1>
 			<p>Please check your inbox for a verification email.</p>
 
-			<button type="button" onClick={() => {
-				fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/resend-verification-email`, {
+			<button type="button" onClick={async () => {
+				await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/resend-verification-email`, {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",
