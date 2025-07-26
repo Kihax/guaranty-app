@@ -7,7 +7,13 @@ export default function DashboardPage() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/items/get`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/items/get`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${document.cookie.split('; ').find(row => row.startsWith('token='))?.split('=')[1] || ''}`,
+          },
+        });
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
