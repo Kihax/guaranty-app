@@ -16,3 +16,7 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/dashboard', request.url));
   }
 }
+
+export const config = {
+  matcher: ['/dashboard/:path*', '/api/logout', '/auth/:path*'],
+};
