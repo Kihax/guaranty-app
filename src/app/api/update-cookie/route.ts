@@ -31,6 +31,11 @@ export async function GET(request: Request) {
         cookieStore.set('fullName', user.fullName);
         cookieStore.set('emailVerified', user.emailVerified);
 
+        return NextResponse.json(
+            { message: "Cookies updated successfully" },
+            { status: 200 }
+        );
+
     } catch (error: unknown) {
         const message =
             error instanceof Error
