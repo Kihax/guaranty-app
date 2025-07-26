@@ -7,7 +7,7 @@ export default function VerifyEmail() {
 	const token = document.cookie
 			.split("; ")
 			.find((row) => row.startsWith("token="))
-			?.split("=")[1];
+			?.split("=")[1] || null; // Get the token from cookies
 
 	async function verifyEmail() {
 		// Check if the user is logged in by looking for a token in cookies
