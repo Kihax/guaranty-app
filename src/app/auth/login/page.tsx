@@ -4,7 +4,7 @@ import "../globals.css";
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import GoogleButton from "../lib/GoogleButton";
+import GoogleButton from "../../lib/GoogleButton";
 import { useRouter } from 'next/navigation';
 
 
@@ -133,7 +133,7 @@ export default function Login() {
 								</label>
 								<div className="text-sm">
 									<a
-										href="#"
+										href="/auth/forgot-password"
 										className="font-semibold text-indigo-600 hover:text-indigo-500"
 									>
 										Forgot password?
@@ -185,7 +185,7 @@ export default function Login() {
 					<p className="mt-3 text-center text-sm/6 text-gray-500">
 						Not a member?{" "}
 						<Link
-							href="/register"
+							href="/auth/register"
 							className="font-semibold text-indigo-600 hover:text-indigo-500"
 						>
 							Start

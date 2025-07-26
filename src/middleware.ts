@@ -7,16 +7,12 @@ export function middleware(request: NextRequest) {
   const isEmailVerified = request.cookies.get('emailVerified')?.value === 'true';
 
   if(isAuthenticated && !isEmailVerified) {
-    return NextResponse.redirect(new URL('/verify_email', request.url));
+    return NextResponse.redirect(new URL('/verify-email', request.url));
   }
 
   if (!isAuthenticated && (request.nextUrl.pathname.startsWith('/dashboard') || request.nextUrl.pathname === '/api/logout')) {
-    return NextResponse.redirect(new URL('/login', request.url));
-  }else if (isAuthenticated && request.nextUrl.pathname === '/login') {
+    return NextResponse.redirect(new URL('/auth/login', request.url));
+  }else if (isAuthenticated && request.nextUrl.pathname.startsWith('/auth')) {
     return NextResponse.redirect(new URL('/dashboard', request.url));
   }
 }
-
-export const config = {
-  matcher: ['/dashboard/:path*', '/api/logout', '/login'], // S’applique uniquement aux routes /dashboard/*
-};

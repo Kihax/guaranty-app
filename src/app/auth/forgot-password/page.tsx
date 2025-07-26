@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import Image from "next/image";
 
@@ -90,7 +92,7 @@ export default function ForgotPasswordPage() {
 
 					<div className="mt-6 text-center">
 						<a
-							href="/login"
+							href="/auth/login"
 							className="text-sm text-indigo-600 hover:text-indigo-500"
 						>
 							Back to login

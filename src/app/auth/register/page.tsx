@@ -4,11 +4,14 @@ import "../globals.css";
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import GoogleButton from "../lib/GoogleButton";
+import GoogleButton from "../../lib/GoogleButton";
+import { useRouter } from 'next/navigation';
 
 export default function Register() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const [fullName, setFullName] = useState("");
+	const router = useRouter();
 
 	// erreurs par champ
 	const [fieldErrors, setFieldErrors] = useState<{ [key: string]: string }>(
@@ -21,7 +24,7 @@ export default function Register() {
 
 		try {
 			const res = await fetch(
-				`${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
+				`${process.env.NEXT_PUBLIC_API_URL}/auth/register`,
 				{
 					method: "POST",
 					headers: {
@@ -34,7 +37,18 @@ export default function Register() {
 			const data = await res.json();
 
 			if (res.ok) {
-				localStorage.setItem("token", data.token);
+				const token = data.token;
+
+				await fetch("/api/login", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({ token }),
+				});
+
+				router.replace("/dashboard"); // Redirect to dashboard after successful login
+
 				// redirect or other actions here
 			} else if (res.status === 422) {
 				if (data.errors && Array.isArray(data.errors)) {
@@ -86,6 +100,38 @@ export default function Register() {
 						method="POST"
 						className="space-y-6"
 					>
+						<div>
+							<label
+								htmlFor="fullName"
+								className="block text-sm/6 font-medium text-gray-900"
+							>
+								Full Name
+							</label>
+							<div className="mt-2">
+								<input
+									value={fullName}
+									onChange={(e) =>
+										setFullName(e.target.value)
+									}
+									id="fullName"
+									name="fullName"
+									type="text"
+									required
+									autoComplete="name"
+									className={`block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 ${
+										fieldErrors.name
+											? "outline-red-600"
+											: ""
+									}`}
+								/>
+								{fieldErrors.name && (
+									<p className="mt-1 text-sm text-red-600">
+										{fieldErrors.name}
+									</p>
+								)}
+							</div>
+						</div>
+
 						<div>
 							<label
 								htmlFor="email"
@@ -154,7 +200,6 @@ export default function Register() {
 							<div className="flex h-6 shrink-0 items-center">
 								<div className="group grid size-4 grid-cols-1">
 									<input
-										defaultChecked
 										id="comments"
 										name="comments"
 										type="checkbox"
@@ -219,7 +264,7 @@ export default function Register() {
 					<p className="mt-3 text-center text-sm/6 text-gray-500">
 						Already have an account?{" "}
 						<Link
-							href="/login"
+							href="/auth/login"
 							className="font-semibold text-indigo-600 hover:text-indigo-500"
 						>
 							Sign in
@@ -228,7 +273,7 @@ export default function Register() {
 
 					<div className="mt-6">
 						<GoogleButton
-							onSuccess={(tokenId) => {
+							onSuccess={(idToken) => {
 								fetch(
 									`${process.env.NEXT_PUBLIC_API_URL}/auth/login-with-google`,
 									{
@@ -236,11 +281,12 @@ export default function Register() {
 										headers: {
 											"Content-Type": "application/json",
 										},
-										body: JSON.stringify({ tokenId }),
+										body: JSON.stringify({ idToken }),
 									}
 								)
 									.then((res) => res.json())
 									.then((data) => {
+										console.log(data);
 										if (data.token) {
 											fetch("/api/login", {
 												method: "POST",
@@ -251,6 +297,12 @@ export default function Register() {
 												body: JSON.stringify({
 													token: data.token,
 												}),
+											}).then((res) => {
+												console.log(
+													"Login successful",
+													res
+												);
+												router.replace("/dashboard"); // Redirect to dashboard after successful login
 											});
 										} else {
 											setFieldErrors({
