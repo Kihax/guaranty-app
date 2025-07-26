@@ -1,3 +1,5 @@
+"use client";
+
 import React, {useEffect} from 'react';
 
 export default function DashboardPage() {
@@ -5,7 +7,7 @@ export default function DashboardPage() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch('/api/items/get');
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/items/get`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
