@@ -6,7 +6,7 @@ export function middleware(request: NextRequest) {
   const isAuthenticated = request.cookies.get('token');
   const isEmailVerified = request.cookies.get('emailVerified')?.value === 'true';
 
-  if(isAuthenticated && !isEmailVerified) {
+  if(isAuthenticated && !isEmailVerified && request.nextUrl.pathname.startsWith('/dashboard')) {
     return NextResponse.redirect(new URL('/verify-email', request.url));
   }
 
@@ -16,7 +16,3 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/dashboard', request.url));
   }
 }
-
-export const config = {
-  matcher: ['/dashboard/:path*', '/api/logout', '/auth/:path*'],
-};
