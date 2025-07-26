@@ -53,26 +53,7 @@ export default function RootLayout({
 							<Bars3Icon aria-hidden="true" className="size-6" />
 						</button>
 					</div>
-					<PopoverGroup className="hidden lg:flex lg:flex-1 lg:justify-center lg:gap-x-12">
-						<a
-							href="#"
-							className="text-sm/6 font-semibold text-gray-900"
-						>
-							Features
-						</a>
-						<a
-							href="#"
-							className="text-sm/6 font-semibold text-gray-900"
-						>
-							Marketplace
-						</a>
-						<a
-							href="#"
-							className="text-sm/6 font-semibold text-gray-900"
-						>
-							Company
-						</a>
-					</PopoverGroup>
+
 					<div className="hidden lg:flex lg:flex-1 lg:justify-end">
 						<Image
 							alt=""
@@ -113,26 +94,6 @@ export default function RootLayout({
 						</div>
 						<div className="mt-6 flow-root">
 							<div className="-my-6 divide-y divide-gray-500/10">
-								<div className="space-y-2 py-6">
-									<a
-										href="#"
-										className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
-									>
-										Features
-									</a>
-									<a
-										href="#"
-										className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
-									>
-										Marketplace
-									</a>
-									<a
-										href="#"
-										className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
-									>
-										Company
-									</a>
-								</div>
 								<div className="py-6">
 									<a
 										href="#"
