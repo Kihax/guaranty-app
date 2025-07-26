@@ -1,4 +1,4 @@
-import { cookies } from "next/headers";
+"use client";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 
@@ -6,13 +6,16 @@ export default function VerifyEmail() {
 	const router = useRouter();
 
 	async function verifyEmail() {
-		const cookiesStore = await cookies();
-		const token = cookiesStore.get("token")?.value;
-		if (!token) {
+		// Check if the user is logged in by looking for a token in cookies
+		const token = document.cookie
+			.split("; ")
+			.find((row) => row.startsWith("token="))
+			?.split("=")[1];
+		if (!token) { // If no token is found, redirect to login
 			router.push("/login");
 			return;
 		}
-		const response = await fetch(
+		const response = await fetch( // Fetching user data to check if email is verified
 			`${process.env.NEXT_PUBLIC_API_URL}/auth/user`,
 			{
 				method: "GET",
@@ -22,16 +25,21 @@ export default function VerifyEmail() {
 			}
 		);
 
-		if (!response.ok) {
-			cookiesStore.delete("token");
-			cookiesStore.delete("emailVerified");
-			router.push("/login");
+		if (!response.ok) { // user isn't well logged in
+			router.push("/api/logout");
 			return;
 		}
 
 		const data = await response.json();
 		if (data.emailVerified) {
-			cookiesStore.set("emailVerified", "true");
+			// If email is already verified, we update the cookeis then redirect
+			await fetch('/api/update-cookie', {
+				method: 'GET',
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			});
+
 			router.push("/dashboard");
 		}
 	}

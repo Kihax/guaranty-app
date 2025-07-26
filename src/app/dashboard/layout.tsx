@@ -3,18 +3,10 @@
 import "../globals.css";
 
 import { use, useEffect, useState } from "react";
-import {
-	Dialog,
-	DialogPanel,
-	PopoverGroup,
-} from "@headlessui/react";
-import {
-	Bars3Icon,
-	XMarkIcon,
-} from "@heroicons/react/24/outline";
+import { Dialog, DialogPanel, PopoverGroup } from "@headlessui/react";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 import Image from "next/image";
-import { cookies } from "next/headers";
 
 export default function RootLayout({
 	children,
@@ -25,17 +17,15 @@ export default function RootLayout({
 	const [fullName, setFullName] = useState<string | null>(null);
 
 	useEffect(() => {
-		async function fetchFullName() {
-			const cookieStore = await cookies();
-			const name = cookieStore.get("fullName")?.value;
-			if (name) {
-				setFullName(name); // Update state with full name
-			}
-		}
-		fetchFullName();
-	});
+		const name = document.cookie
+			.split("; ")
+			.find((row) => row.startsWith("fullName="))
+			?.split("=")[1];
 
-	
+		if (name) {
+			setFullName(name); // Update state with full name
+		}
+	});
 
 	return (
 		<>
@@ -92,7 +82,6 @@ export default function RootLayout({
 						/>
 
 						{fullName}
-
 					</div>
 				</nav>
 				<Dialog
