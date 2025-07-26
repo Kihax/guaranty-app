@@ -4,7 +4,7 @@ import type { NextRequest } from 'next/server';
 export function middleware(request: NextRequest) {
   // Exemple : redirection si l'utilisateur n'est pas connecté
   const isAuthenticated = request.cookies.get('token');
-  const isEmailVerified = request.cookies.get('emailVerified');
+  const isEmailVerified = request.cookies.get('emailVerified')?.value === 'true';
 
   if(isAuthenticated && !isEmailVerified) {
     return NextResponse.redirect(new URL('/verify-email', request.url));
