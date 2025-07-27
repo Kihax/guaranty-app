@@ -40,11 +40,11 @@ export default function DashboardPage() {
 
 	return (
 		<div>
-			<h1>Dashboard</h1>
-			<ul role="list" className="divide-y divide-gray-100">
+			<h1 className="text-2xl font-bold">Items</h1>
+			<ul role="list" className="divide-y divide-gray-100 px-5">
 				{data.map((item) => (
 					<li
-						className="flex justify-between gap-x-6 py-5"
+						className="flex justify-between gap-x-6 py-5 bg-gray-50 rounded-lg"
 						key={item.id}
 					>
 						<div className="flex min-w-0 gap-x-4">
