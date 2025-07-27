@@ -2,167 +2,186 @@
 
 import "../globals.css";
 
-import React, { useState, useEffect, useRef } from "react";
-import { Dialog, DialogPanel } from "@headlessui/react";
-import { Bars3Icon, XMarkIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
-
+import { Fragment, useState, useEffect } from "react";
+import { Dialog, Menu, Transition } from "@headlessui/react";
+import {
+	Bars3Icon,
+	XMarkIcon,
+	ChevronDownIcon,
+} from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function RootLayout({
 	children,
-}: Readonly<{
+}: {
 	children: React.ReactNode;
-}>) {
+}) {
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-	const [fullName, setFullName] = useState<string | null>(null);
-	const [dropdownOpen, setDropdownOpen] = useState(false);
-	const dropdownRef = useRef<HTMLDivElement>(null);
+	const [fullName, setFullName] = useState("Utilisateur");
 
 	useEffect(() => {
 		const name =
 			document.cookie
 				.split("; ")
 				.find((row) => row.startsWith("fullName="))
-				?.split("=")[1] ?? null;
-
-		setFullName(decodeURIComponent(name ?? ""));
+				?.split("=")[1] ?? "Utilisateur";
+		setFullName(decodeURIComponent(name));
 	}, []);
 
-	// Fermer le menu utilisateur quand on clique en dehors
-	useEffect(() => {
-		function handleClickOutside(event: MouseEvent) {
-			if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-				setDropdownOpen(false);
-			}
-		}
-		document.addEventListener("mousedown", handleClickOutside);
-		return () => {
-			document.removeEventListener("mousedown", handleClickOutside);
-		};
-	}, []);
+	const userImage = `https://ui-avatars.com/api/?name=${encodeURIComponent(
+		fullName
+	)}&background=0D8ABC&color=fff`;
 
 	const handleLogout = () => {
 		console.log("Déconnexion...");
-		// Ajoute ici ta logique : suppression des cookies, redirection, etc.
+		// log out logic here
 	};
 
 	return (
 		<>
-			<header className="bg-white shadow fixed top-0 w-full z-50">
-				<nav
-					aria-label="Global"
-					className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
-				>
-					{/* Logo */}
-					<div className="flex lg:flex-1">
-						<Link href="/" className="-m-1.5 p-1.5 flex items-center">
-							<span className="sr-only">Your Company</span>
-							<Image
-								alt="Logo"
-								src="/logo_black.png"
-								className="h-8 w-auto"
-								width={32}
-								height={32}
-							/>
-						</Link>
+			<header className="bg-white shadow fixed top-0 inset-x-0 z-50">
+				<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+					<div className="flex h-16 justify-between items-center">
+						{/* Logo */}
+						<div className="flex items-center">
+							<Link href="/" className="flex items-center">
+								<Image
+									src="/logo_black.png"
+									alt="Logo"
+									width={32}
+									height={32}
+									className="h-8 w-auto"
+								/>
+								<span className="ml-2 font-semibold text-lg text-gray-800">
+									MonApp
+								</span>
+							</Link>
+						</div>
+
+						{/* Menu mobile */}
+						<div className="flex lg:hidden">
+							<button
+								type="button"
+								className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:bg-gray-100"
+								onClick={() => setMobileMenuOpen(true)}
+							>
+								<span className="sr-only">Ouvrir le menu</span>
+								<Bars3Icon className="h-6 w-6" />
+							</button>
+						</div>
+
+						{/* Profil utilisateur */}
+						<div className="hidden lg:flex lg:items-center">
+							<Menu as="div" className="relative ml-3">
+								<Menu.Button className="flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+									<Image
+										className="h-8 w-8 rounded-full object-cover"
+										src={userImage}
+										alt="Avatar utilisateur"
+										width={32}
+										height={32}
+									/>
+									<ChevronDownIcon className="ml-2 h-4 w-4 text-gray-500" />
+								</Menu.Button>
+								<Transition
+									as={Fragment}
+									enter="transition ease-out duration-100"
+									enterFrom="transform opacity-0 scale-95"
+									enterTo="transform opacity-100 scale-100"
+									leave="transition ease-in duration-75"
+									leaveFrom="transform opacity-100 scale-100"
+									leaveTo="transform opacity-0 scale-95"
+								>
+									<Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+										<Menu.Item>
+											{({ active }) => (
+												<Link
+													href="/settings"
+													className={`${
+														active
+															? "bg-gray-100"
+															: ""
+													} block px-4 py-2 text-sm text-gray-700`}
+												>
+													Paramètres
+												</Link>
+											)}
+										</Menu.Item>
+										<Menu.Item>
+											{({ active }) => (
+												<button
+													onClick={handleLogout}
+													className={`${
+														active
+															? "bg-gray-100"
+															: ""
+													} block w-full text-left px-4 py-2 text-sm text-gray-700`}
+												>
+													Déconnexion
+												</button>
+											)}
+										</Menu.Item>
+									</Menu.Items>
+								</Transition>
+							</Menu>
+						</div>
 					</div>
+				</div>
 
-					{/* Menu hamburger mobile */}
-					<div className="flex lg:hidden">
-						<button
-							type="button"
-							onClick={() => setMobileMenuOpen(true)}
-							className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
-						>
-							<span className="sr-only">Open main menu</span>
-							<Bars3Icon aria-hidden="true" className="size-6" />
-						</button>
-					</div>
-
-					{/* Desktop - Profil utilisateur */}
-					<div className="hidden lg:flex lg:flex-1 lg:justify-end" ref={dropdownRef}>
-						<button
-							onClick={() => setDropdownOpen(!dropdownOpen)}
-							className="flex items-center space-x-2 hover:bg-gray-100 px-3 py-2 rounded-md transition"
-						>
-							<Image
-								src="/api/profile" // à remplacer par l'URL réelle du profil utilisateur
-								alt="User"
-								className="h-8 w-8 rounded-full object-cover"
-								width={32}
-								height={32}
-							/>
-							<span className="text-gray-700 font-medium">{fullName}</span>
-							<ChevronDownIcon className="w-4 h-4 text-gray-500" />
-						</button>
-
-						{/* Dropdown */}
-						{dropdownOpen && (
-							<div className="absolute mt-12 right-6 w-44 bg-white shadow-lg border rounded-md z-50">
+				{/* Drawer mobile */}
+				<Transition show={mobileMenuOpen} as={Fragment}>
+					<Dialog
+						as="div"
+						className="lg:hidden"
+						onClose={setMobileMenuOpen}
+					>
+						<Dialog.Panel className="fixed inset-0 z-50 bg-white p-6">
+							<div className="flex items-center justify-between">
+								<Link href="/" className="flex items-center">
+									<Image
+										src="/logo_black.png"
+										alt="Logo"
+										width={32}
+										height={32}
+										className="h-8 w-auto"
+									/>
+									<span className="ml-2 font-semibold text-lg text-gray-800">
+										MonApp
+									</span>
+								</Link>
+								<button
+									type="button"
+									className="text-gray-700"
+									onClick={() => setMobileMenuOpen(false)}
+								>
+									<XMarkIcon className="h-6 w-6" />
+								</button>
+							</div>
+							<div className="mt-6">
+								<p className="text-gray-900 font-semibold">
+									{fullName}
+								</p>
 								<Link
-									href="dashboard/settings"
-									className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+									href="/settings"
+									className="block mt-4 text-sm text-blue-600 hover:underline"
 								>
 									Paramètres
 								</Link>
-								<Link
-									href="/api/logout"
-									className="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+								<button
+									onClick={handleLogout}
+									className="block mt-2 text-sm text-red-600 hover:underline"
 								>
 									Déconnexion
-								</Link>
+								</button>
 							</div>
-						)}
-					</div>
-				</nav>
-
-				{/* Mobile drawer menu */}
-				<Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden">
-					<div className="fixed inset-0 z-50" />
-					<DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
-						<div className="flex items-center justify-between">
-							<Link href="/" className="-m-1.5 p-1.5">
-								<Image
-									alt=""
-									src="/logo_black.png"
-									className="h-8 w-auto"
-									width={32}
-									height={32}
-								/>
-							</Link>
-							<button
-								type="button"
-								onClick={() => setMobileMenuOpen(false)}
-								className="-m-2.5 rounded-md p-2.5 text-gray-700"
-							>
-								<XMarkIcon aria-hidden="true" className="size-6" />
-							</button>
-						</div>
-						<div className="mt-6">
-							<div className="divide-y divide-gray-200">
-								<div className="py-6">
-									<span className="block text-gray-800 font-semibold">{fullName}</span>
-									<Link href="/dashboard/settings" className="block mt-4 text-sm text-blue-600 hover:underline">
-										Paramètres
-									</Link>
-									<Link
-										href="/api/logout"
-										className="block mt-2 text-sm text-red-600 hover:underline"
-									>
-										Déconnexion
-									</Link>
-								</div>
-							</div>
-						</div>
-					</DialogPanel>
-				</Dialog>
+						</Dialog.Panel>
+					</Dialog>
+				</Transition>
 			</header>
 
-			{/* Contenu principal, avec padding-top pour laisser place à la navbar */}
-			<main className="pt-24">
-				{children}
-			</main>
+			{/* Espace pour la navbar fixe */}
+			<main className="pt-20">{children}</main>
 		</>
 	);
 }
