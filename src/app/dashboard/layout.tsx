@@ -29,10 +29,6 @@ export default function RootLayout({
 		setFullName(decodeURIComponent(name));
 	}, []);
 
-	const userImage = `https://ui-avatars.com/api/?name=${encodeURIComponent(
-		fullName
-	)}&background=0D8ABC&color=fff`;
-
 	const handleLogout = () => {
 		console.log("Déconnexion...");
 		// log out logic here
@@ -77,7 +73,7 @@ export default function RootLayout({
 								<Menu.Button className="flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
 									<Image
 										className="h-8 w-8 rounded-full object-cover"
-										src={userImage}
+										src="/api/profile-image"
 										alt="Avatar utilisateur"
 										width={32}
 										height={32}
@@ -93,7 +89,7 @@ export default function RootLayout({
 									leaveFrom="transform opacity-100 scale-100"
 									leaveTo="transform opacity-0 scale-95"
 								>
-									<Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+									<Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg focus:outline-none">
 										<Menu.Item>
 											{({ active }) => (
 												<Link
