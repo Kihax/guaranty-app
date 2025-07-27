@@ -52,7 +52,7 @@ export default function DashboardPage() {
 								width={48}
 								height={48}
 								alt=""
-								src={`${process.env.NEXT_PUBLIC_APP_URL}/api/image?id=${item.id}`}
+								src={`/api/image?id=${item.id}`}
 								className="size-12 flex-none rounded-2xl bg-gray-50"
 							/>
 							<div className="min-w-0 flex-auto">
