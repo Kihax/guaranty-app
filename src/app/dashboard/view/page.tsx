@@ -52,52 +52,52 @@ export default function DashboardPage() {
 								width={48}
 								height={48}
 								alt=""
-								src={`${process.env.NEXT_PUBLIC_API_URL}/items/image/${item.id}`}
+								src={`${process.env.NEXT_PUBLIC_APP_URL}/api/image?id=${item.id}`}
 								className="size-12 flex-none rounded-2xl bg-gray-50"
 							/>
 							<div className="min-w-0 flex-auto">
 								<p className="text-sm/6 font-semibold text-gray-900">
 									{item.productName}
 								</p>
-								<p className="mt-1 truncate text-xs/5 text-gray-500"></p>
+								<p className="mt-1 truncate text-xs/5 text-gray-500">
+									{(() => {
+										const diff = getDifference(
+											new Date(item.warrantyExpiryDate)
+										);
+
+										let text = "";
+										if (diff.years >= 2) {
+											text = `${diff.years} an${
+												diff.years > 1 ? "s" : ""
+											}`;
+										} else if (diff.totalMonths >= 1) {
+											text = `${diff.totalMonths} mois`;
+										} else {
+											text = `${diff.totalDays} jours`;
+										}
+
+										let badgeClass =
+											"bg-gray-100 text-gray-800 ring-gray-300";
+										if (diff.isPast) {
+											badgeClass =
+												"bg-red-200 text-red-800 ring-red-400";
+										} else if (diff.totalMonths < 2) {
+											badgeClass =
+												"bg-red-100 text-red-700 ring-red-300";
+										}
+
+										return (
+											<span
+												className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ring-1 ring-inset ${badgeClass}`}
+											>
+												{text}
+											</span>
+										);
+									})()}
+								</p>
 							</div>
 						</div>
-						<div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-							{(() => {
-								const diff = getDifference(
-									new Date(item.warrantyExpiryDate)
-								);
-
-								let text = "";
-								if (diff.years >= 2) {
-									text = `${diff.years} an${
-										diff.years > 1 ? "s" : ""
-									}`;
-								} else if (diff.totalMonths >= 1) {
-									text = `${diff.totalMonths} mois`;
-								} else {
-									text = `${diff.totalDays} jours`;
-								}
-
-								let badgeClass =
-									"bg-gray-100 text-gray-800 ring-gray-300";
-								if (diff.isPast) {
-									badgeClass =
-										"bg-red-200 text-red-800 ring-red-400";
-								} else if (diff.totalMonths < 2) {
-									badgeClass =
-										"bg-red-100 text-red-700 ring-red-300";
-								}
-
-								return (
-									<span
-										className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ring-1 ring-inset ${badgeClass}`}
-									>
-										{text}
-									</span>
-								);
-							})()}
-						</div>
+						<div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end"></div>
 					</li>
 				))}
 			</ul>
