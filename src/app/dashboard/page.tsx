@@ -2,7 +2,7 @@
 
 import React, { useEffect } from "react";
 import Image from "next/image";
-import { getDateDifference, getDifference } from "@/app/lib/date";
+import { getDifference } from "@/app/lib/date";
 
 export default function DashboardPage() {
 	const [data, setData] = React.useState<

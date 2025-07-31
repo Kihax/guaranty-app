@@ -7,23 +7,6 @@ export async function GET(request: Request) {
 	const token = cookieStore.get("token")?.value;
 
 	try {
-		const userResponse = await fetch(
-			`${process.env.NEXT_PUBLIC_API_URL}/auth/user`,
-			{
-				method: "GET",
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			}
-		);
-
-		console.log("User response:", userResponse);
-
-		if (!userResponse.ok) {
-			throw new Error("Failed to fetch user");
-		}
-
-		const user = await userResponse.json();
 
 		try {
 			fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/logout`, {
