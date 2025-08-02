@@ -11,7 +11,7 @@ export async function GET() {
 
 	try {
 		const response = await fetch(
-			`${process.env.NEXT_PUBLIC_API_URL}/auth/profile-image`,
+			`${process.env.NEXT_PUBLIC_API_URL}/auth/get-profile-picture`,
 			{
 				method: "GET",
 				headers: {
