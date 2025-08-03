@@ -122,6 +122,52 @@ export default function DashboardPage() {
 							</div>
 						</div>
 						<div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end"></div>
+						<div className="flex items-center gap-2">
+							<button
+								type="button"
+								onClick={() =>
+									(window.location.href = `/dashboard/edit/${item.id}`)
+								}
+								className="inline-flex items-center rounded-md bg-white px-2 py-1.5 text-sm font-medium text-gray-700 ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+							>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									fill="none"
+									viewBox="0 0 24 24"
+									strokeWidth={1.5}
+									stroke="currentColor"
+									className="h-4 w-4 mr-1"
+								>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										d="M16.862 4.487a2.121 2.121 0 1 1 3 3L7.5 19.5H4.5v-3L16.862 4.487z"
+									/>
+								</svg>
+								Éditer
+							</button>
+							<button
+								type="button"
+								onClick={() => handleDelete(item.id)}
+								className="inline-flex items-center rounded-md bg-red-600 px-2 py-1.5 text-sm font-medium text-white hover:bg-red-500"
+							>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									fill="none"
+									viewBox="0 0 24 24"
+									strokeWidth={1.5}
+									stroke="currentColor"
+									className="h-4 w-4 mr-1"
+								>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										d="M6 18L18 6M6 6l12 12"
+									/>
+								</svg>
+								Supprimer
+							</button>
+						</div>
 					</li>
 				))}
 			</ul>
