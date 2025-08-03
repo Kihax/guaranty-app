@@ -8,6 +8,30 @@ export default function DashboardPage() {
 	const [data, setData] = React.useState<
 		Array<{ id: number; productName: string; warrantyExpiryDate: string }>
 	>([]);
+
+	const handleDelete = (id: number) => {
+		fetch(`${process.env.NEXT_PUBLIC_API_URL}/items/delete/${id}`, {
+			method: "DELETE",
+			headers: {
+				Authorization: `Bearer ${
+					document.cookie
+						.split("; ")
+						.find((row) => row.startsWith("token=")
+						)?.split("=")[1] || ""
+				}`,
+			},	
+		})
+			.then((response) => {
+				if (!response.ok) {
+					throw new Error("Network response was not ok");
+				}
+				setData((prevData) => prevData.filter((item) => item.id !== id));
+			})
+			.catch((error) => {
+				console.error("Error deleting item:", error);
+			});
+	};
+
 	useEffect(() => {
 		async function fetchData() {
 			try {
