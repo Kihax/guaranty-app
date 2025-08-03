@@ -30,8 +30,7 @@ export default function RootLayout({
 	}, []);
 
 	const handleLogout = () => {
-		console.log("Déconnexion...");
-		// log out logic here
+		window.location.href = "/api/logout";
 	};
 
 	return (
@@ -50,7 +49,7 @@ export default function RootLayout({
 									className="h-8 w-auto"
 								/>
 								<span className="ml-2 font-semibold text-lg text-gray-800">
-									MonApp
+									Guaranty
 								</span>
 							</Link>
 						</div>
@@ -124,56 +123,6 @@ export default function RootLayout({
 						</div>
 					</div>
 				</div>
-
-				{/* Drawer mobile */}
-				<Transition show={mobileMenuOpen} as={Fragment}>
-					<Dialog
-						as="div"
-						className="lg:hidden"
-						onClose={setMobileMenuOpen}
-					>
-						<Dialog.Panel className="fixed inset-0 z-50 bg-white p-6">
-							<div className="flex items-center justify-between">
-								<Link href="/" className="flex items-center">
-									<Image
-										src="/logo_black.png"
-										alt="Logo"
-										width={32}
-										height={32}
-										className="h-8 w-auto"
-									/>
-									<span className="ml-2 font-semibold text-lg text-gray-800">
-										MonApp
-									</span>
-								</Link>
-								<button
-									type="button"
-									className="text-gray-700"
-									onClick={() => setMobileMenuOpen(false)}
-								>
-									<XMarkIcon className="h-6 w-6" />
-								</button>
-							</div>
-							<div className="mt-6">
-								<p className="text-gray-900 font-semibold">
-									{fullName}
-								</p>
-								<Link
-									href="/settings"
-									className="block mt-4 text-sm text-blue-600 hover:underline"
-								>
-									Paramètres
-								</Link>
-								<button
-									onClick={handleLogout}
-									className="block mt-2 text-sm text-red-600 hover:underline"
-								>
-									Déconnexion
-								</button>
-							</div>
-						</Dialog.Panel>
-					</Dialog>
-				</Transition>
 			</header>
 
 			{/* Espace pour la navbar fixe */}
