@@ -54,22 +54,11 @@ export default function RootLayout({
 							</Link>
 						</div>
 
-						{/* Menu mobile */}
-						<div className="flex lg:hidden">
-							<button
-								type="button"
-								className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:bg-gray-100"
-								onClick={() => setMobileMenuOpen(true)}
-							>
-								<span className="sr-only">Ouvrir le menu</span>
-								<Bars3Icon className="h-6 w-6" />
-							</button>
-						</div>
 
 						{/* Profil utilisateur */}
-						<div className="hidden lg:flex lg:items-center">
+						<div className="flex items-center">
 							<Menu as="div" className="relative ml-3">
-								<Menu.Button className="flex items-center text-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+								<Menu.Button className="flex items-center text-sm rounded-xl bg-gray-50 focus:outline-none ring-2 focus:ring-indigo-500 focus:ring-offset-2">
 									<Image
 										className="h-8 w-8 rounded-xl object-cover"
 										src="/api/profile-image"
