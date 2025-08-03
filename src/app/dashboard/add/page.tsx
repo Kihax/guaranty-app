@@ -20,7 +20,7 @@ export default function AddPage() {
 		event.preventDefault();
 		const formData = new FormData(event.currentTarget);
 		const data = Object.fromEntries(formData.entries());
-		fetch(`${process.env.NEXT_PUBLIC_API_URL}/items/add`, {
+		fetch(`${process.env.NEXT_PUBLIC_API_URL}/items/store`, {
 			method: "POST",
 			headers: {
 				Authorization: `Bearer ${
