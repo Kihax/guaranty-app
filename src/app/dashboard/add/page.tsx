@@ -19,7 +19,38 @@ export default function AddPage() {
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		const formData = new FormData(event.currentTarget);
-		const data = Object.fromEntries(formData.entries());
+
+		// Cast form entries into proper types
+		const data = {
+			product_name: formData.get("product_name")?.toString().trim(),
+			brand: formData.get("brand")?.toString().trim(),
+			purchase_date: formData.get("purchase_date")?.toString(),
+			warranty_duration_months: Number(
+				formData.get("warranty_duration_months")
+			),
+			warranty_expiry_date:
+				formData.get("warranty_expiry_date") || undefined,
+			serial_number:
+				formData.get("serial_number")?.toString().trim() || "",
+			purchase_location:
+				formData.get("purchase_location")?.toString().trim() || "",
+			warranty_type:
+				formData.get("warranty_type")?.toString() || undefined,
+			notes: formData.get("notes")?.toString().trim() || "",
+			customer_service_contact:
+				formData.get("customer_service_contact")?.toString().trim() ||
+				"",
+		};
+
+		// Handle file upload separately
+		const imageFile = formData.get("receipt");
+
+		const payload = new FormData();
+		payload.append("data", JSON.stringify(data));
+		if (imageFile instanceof File && imageFile.size > 0) {
+			payload.append("receipt", imageFile);
+		}
+
 		fetch(`${process.env.NEXT_PUBLIC_API_URL}/items/store`, {
 			method: "POST",
 			headers: {
@@ -30,16 +61,13 @@ export default function AddPage() {
 						?.split("=")[1] || ""
 				}`,
 			},
-			body: JSON.stringify(data),
+			body: payload,
 		})
 			.then((response) => {
 				if (!response.ok) {
 					throw new Error("Network response was not ok");
 				}
 				window.location.href = "/dashboard";
-			})
-			.then((data) => {
-				console.log("Form Data Submitted Successfully:", data);
 			})
 			.catch((error) => {
 				console.error("Error submitting form data:", error);
