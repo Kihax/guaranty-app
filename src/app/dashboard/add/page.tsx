@@ -1,6 +1,21 @@
-'use client'
+"use client";
+import React, { useState } from "react";
 
 export default function AddPage() {
+	const [imagePreview, setImagePreview] = useState<string | null>(null);
+
+	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const file = e.target.files?.[0];
+		if (file) {
+			const reader = new FileReader();
+			reader.onloadend = () => {
+				setImagePreview(reader.result as string);
+			};
+			reader.readAsDataURL(file);
+		} else {
+			setImagePreview(null);
+		}
+	};
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		const formData = new FormData(event.currentTarget);
@@ -8,7 +23,6 @@ export default function AddPage() {
 		fetch(`${process.env.NEXT_PUBLIC_API_URL}/items/add`, {
 			method: "POST",
 			headers: {
-				"Content-Type": "application/json",
 				Authorization: `Bearer ${
 					document.cookie
 						.split("; ")
@@ -30,7 +44,7 @@ export default function AddPage() {
 			.catch((error) => {
 				console.error("Error submitting form data:", error);
 			});
-	}
+	};
 	return (
 		<form className="lg:px-14 md:px-8 px-2" onSubmit={handleSubmit}>
 			<div className="space-y-12">
@@ -112,6 +126,49 @@ export default function AddPage() {
 									min="1"
 									required
 									className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+								/>
+							</div>
+						</div>
+
+						<div className="col-span-full">
+							<label
+								htmlFor="receiptImage"
+								className="block text-sm font-medium leading-6 text-gray-900"
+							>
+								Image du ticket
+							</label>
+							<div className="mt-2 flex items-center gap-x-3">
+								{imagePreview ? (
+									<img
+										src={imagePreview}
+										alt="Aperçu du ticket"
+										className="h-16 rounded-md border border-gray-300"
+									/>
+								) : (
+									<span className="h-16 w-16 flex items-center justify-center rounded-md bg-gray-100 text-gray-400 border border-dashed border-gray-300">
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											className="h-6 w-6"
+											fill="none"
+											viewBox="0 0 24 24"
+											stroke="currentColor"
+										>
+											<path
+												strokeLinecap="round"
+												strokeLinejoin="round"
+												strokeWidth="1.5"
+												d="M12 4.5v15m7.5-7.5h-15"
+											/>
+										</svg>
+									</span>
+								)}
+
+								<input
+									type="file"
+									id="receiptImage"
+									accept="image/*"
+									onChange={handleFileChange}
+									className="block text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
 								/>
 							</div>
 						</div>
