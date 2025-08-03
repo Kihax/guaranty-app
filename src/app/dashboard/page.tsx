@@ -40,7 +40,7 @@ export default function DashboardPage() {
 
 	return (
 		<div className="px-5">
-			<div className="sticky bottom-0 z-10 bg-white border-t border-gray-200 py-4 px-6 flex justify-end">
+			<div className="fixed bottom-0 z-10 bg-white border-t border-gray-200 py-4 px-6 flex justify-end">
 				<button
 					type="button"
 					onClick={() => (window.location.href = "/dashboard/add")}
