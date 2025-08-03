@@ -7,7 +7,7 @@ export default function DashboardPage() {
 						Garantie produit
 					</h2>
 					<p className="mt-1 text-sm/6 text-gray-600">
-						Renseignez les informations liées à l'achat et à la
+						Renseignez les informations liées à l&apos;achat et à la
 						garantie de votre produit.
 					</p>
 
@@ -17,7 +17,7 @@ export default function DashboardPage() {
 								htmlFor="object-name"
 								className="block text-sm/6 font-medium text-gray-900"
 							>
-								Nom de l'objet
+								Nom de l&apos;objet
 							</label>
 							<div className="mt-2">
 								<input
@@ -52,7 +52,7 @@ export default function DashboardPage() {
 								htmlFor="purchase-date"
 								className="block text-sm/6 font-medium text-gray-900"
 							>
-								Date d'achat
+								Date d&apos;achat
 							</label>
 							<div className="mt-2">
 								<input
@@ -147,7 +147,7 @@ export default function DashboardPage() {
 
 						<div className="col-span-full">
 							<label
-								for="customer-support"
+								htmlFor="customer-support"
 								className="block text-sm/6 font-medium text-gray-900"
 							>
 								Contact service consommateur (optionnel)
