@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import Image from "next/image";
 
 export default function AddPage() {
 	const [imagePreview, setImagePreview] = useState<string | null>(null);
@@ -20,37 +21,6 @@ export default function AddPage() {
 		event.preventDefault();
 		const formData = new FormData(event.currentTarget);
 
-		// Cast form entries into proper types
-		const data = {
-			product_name: formData.get("product_name")?.toString().trim(),
-			brand: formData.get("brand")?.toString().trim(),
-			purchase_date: formData.get("purchase_date")?.toString(),
-			warranty_duration_months: Number(
-				formData.get("warranty_duration_months")
-			),
-			warranty_expiry_date:
-				formData.get("warranty_expiry_date") || undefined,
-			serial_number:
-				formData.get("serial_number")?.toString().trim() || "",
-			purchase_location:
-				formData.get("purchase_location")?.toString().trim() || "",
-			warranty_type:
-				formData.get("warranty_type")?.toString() || undefined,
-			notes: formData.get("notes")?.toString().trim() || "",
-			customer_service_contact:
-				formData.get("customer_service_contact")?.toString().trim() ||
-				"",
-		};
-
-		// Handle file upload separately
-		const imageFile = formData.get("receipt");
-
-		const payload = new FormData();
-		payload.append("data", JSON.stringify(data));
-		if (imageFile instanceof File && imageFile.size > 0) {
-			payload.append("receipt", imageFile);
-		}
-
 		fetch(`${process.env.NEXT_PUBLIC_API_URL}/items/store`, {
 			method: "POST",
 			headers: {
@@ -61,7 +31,7 @@ export default function AddPage() {
 						?.split("=")[1] || ""
 				}`,
 			},
-			body: payload,
+			body: formData,
 		})
 			.then((response) => {
 				if (!response.ok) {
@@ -167,7 +137,9 @@ export default function AddPage() {
 							</label>
 							<div className="mt-2 flex items-center gap-x-3">
 								{imagePreview ? (
-									<img
+									<Image
+										width={64}
+										height={64}
 										src={imagePreview}
 										alt="Aperçu du ticket"
 										className="h-16 rounded-md border border-gray-300"
@@ -194,6 +166,7 @@ export default function AddPage() {
 								<input
 									type="file"
 									id="receiptImage"
+									name="receipt"
 									accept="image/*"
 									onChange={handleFileChange}
 									className="block text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
