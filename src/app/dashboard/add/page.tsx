@@ -1,7 +1,37 @@
-export default function DashboardPage() {
+export default function AddPage() {
+	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+		const formData = new FormData(event.currentTarget);
+		const data = Object.fromEntries(formData.entries());
+		fetch(`${process.env.NEXT_PUBLIC_API_URL}/items/add`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${
+					document.cookie
+						.split("; ")
+						.find((row) => row.startsWith("token="))
+						?.split("=")[1] || ""
+				}`,
+			},
+			body: JSON.stringify(data),
+		})
+			.then((response) => {
+				if (!response.ok) {
+					throw new Error("Network response was not ok");
+				}
+				window.location.href = "/dashboard";
+			})
+			.then((data) => {
+				console.log("Form Data Submitted Successfully:", data);
+			})
+			.catch((error) => {
+				console.error("Error submitting form data:", error);
+			});
+	}
 	return (
-		<form>
-			<div className="space-y-12 lg:px-8">
+		<form className="lg:px-14 md:px-8 px-2" onSubmit={handleSubmit}>
+			<div className="space-y-12">
 				<div className="border-b border-gray-900/10 pb-12">
 					<h2 className="text-base/7 font-semibold text-gray-900">
 						Garantie produit
@@ -14,15 +44,15 @@ export default function DashboardPage() {
 					<div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 						<div className="sm:col-span-4">
 							<label
-								htmlFor="object-name"
+								htmlFor="product-name"
 								className="block text-sm/6 font-medium text-gray-900"
 							>
 								Nom de l&apos;objet
 							</label>
 							<div className="mt-2">
 								<input
-									id="object-name"
-									name="object-name"
+									name="product_name"
+									id="product-name"
 									type="text"
 									required
 									className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
@@ -57,7 +87,7 @@ export default function DashboardPage() {
 							<div className="mt-2">
 								<input
 									id="purchase-date"
-									name="purchase-date"
+									name="purchase_date"
 									type="date"
 									required
 									className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
@@ -75,9 +105,9 @@ export default function DashboardPage() {
 							<div className="mt-2">
 								<input
 									id="warranty-duration"
-									name="warranty-duration"
+									name="warranty_duration_months"
 									type="number"
-									min="0"
+									min="1"
 									required
 									className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
 								/>
@@ -94,7 +124,24 @@ export default function DashboardPage() {
 							<div className="mt-2">
 								<input
 									id="serial-number"
-									name="serial-number"
+									name="serial_number"
+									type="text"
+									className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+								/>
+							</div>
+						</div>
+
+						<div className="sm:col-span-3">
+							<label
+								htmlFor="serial-number"
+								className="block text-sm/6 font-medium text-gray-900"
+							>
+								Lieu d&apos;achat
+							</label>
+							<div className="mt-2">
+								<input
+									id="purchase-location"
+									name="purchase_location"
 									type="text"
 									className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
 								/>
@@ -111,7 +158,7 @@ export default function DashboardPage() {
 							<div className="mt-2">
 								<select
 									id="warranty-type"
-									name="warranty-type"
+									name="warranty_type"
 									className="block w-full rounded-md bg-white px-3 py-1.5 pr-8 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
 								>
 									<option value="">—</option>
@@ -125,15 +172,15 @@ export default function DashboardPage() {
 
 						<div className="col-span-full">
 							<label
-								htmlFor="note"
+								htmlFor="notes"
 								className="block text-sm/6 font-medium text-gray-900"
 							>
 								Note (optionnel)
 							</label>
 							<div className="mt-2">
 								<textarea
-									id="note"
-									name="note"
+									id="notes"
+									name="notes"
 									rows={3}
 									maxLength={500}
 									placeholder="Ajouter une remarque..."
@@ -155,7 +202,7 @@ export default function DashboardPage() {
 							<div className="mt-2">
 								<input
 									id="customer-support"
-									name="customer-support"
+									name="customer_service_contact"
 									type="text"
 									placeholder="Email, téléphone, etc."
 									className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"

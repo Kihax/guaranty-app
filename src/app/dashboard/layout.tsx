@@ -40,7 +40,7 @@ export default function RootLayout({
 					<div className="flex h-16 justify-between items-center">
 						{/* Logo */}
 						<div className="flex items-center">
-							<Link href="/" className="flex items-center">
+							<Link href="/dashboard" className="flex items-center">
 								<Image
 									src="/logo_black.png"
 									alt="Logo"
@@ -69,9 +69,9 @@ export default function RootLayout({
 						{/* Profil utilisateur */}
 						<div className="hidden lg:flex lg:items-center">
 							<Menu as="div" className="relative ml-3">
-								<Menu.Button className="flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+								<Menu.Button className="flex items-center text-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
 									<Image
-										className="h-8 w-8 rounded-full object-cover"
+										className="h-8 w-8 rounded-xl object-cover"
 										src="/api/profile-image"
 										alt="Avatar utilisateur"
 										width={32}
@@ -92,7 +92,7 @@ export default function RootLayout({
 										<Menu.Item>
 											{({ active }) => (
 												<Link
-													href="/settings"
+													href="/dashboard/settings"
 													className={`${
 														active
 															? "bg-gray-100"
