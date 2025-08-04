@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import React, { useEffect, useState, use } from "react";
 import Image from "next/image";
@@ -13,6 +14,9 @@ export default function EditPage({
 
 	useEffect(() => {
         const { id: _id } = use(params);
+        if(_id === id) {
+            return;
+        }
         setId(_id);
 		fetch(`${process.env.NEXT_PUBLIC_API_URL}/items/get/${id}`, {
 			method: "GET",
@@ -84,7 +88,7 @@ export default function EditPage({
 			.catch((error) => {
 				console.error("Failed to fetch item data:", error);
 			});
-	}, [id, params]);
+	});
 
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
