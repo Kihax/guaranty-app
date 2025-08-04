@@ -3,11 +3,7 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { get } from "http";
 
-interface Props {
-	params: { id: string };
-}
-
-export default function EditPage({ params }: Props) {
+export default function EditPage({ params }: { params: { id: string } }) {
 	const [imagePreview, setImagePreview] = useState<string | null>(null);
 
 	useEffect(() => {
