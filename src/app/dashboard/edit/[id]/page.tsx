@@ -2,22 +2,17 @@
 "use client";
 import React, { useEffect, useState, use } from "react";
 import Image from "next/image";
+import { useParams } from "next/navigation";
 
 export default function EditPage({
 	params,
 }: {
 	params: Promise<{ id: string }>;
 }) {
-	
 	const [imagePreview, setImagePreview] = useState<string | null>(null);
-    const [id, setId] = useState<string | null>(null);
+	const { id } = useParams();
 
 	useEffect(() => {
-        const { id: _id } = use(params);
-        if(_id === id) {
-            return;
-        }
-        setId(_id);
 		fetch(`${process.env.NEXT_PUBLIC_API_URL}/items/get/${id}`, {
 			method: "GET",
 			headers: {
