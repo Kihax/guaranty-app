@@ -11,16 +11,16 @@ export default function EditPage({
 }) {
 	const [imagePreview, setImagePreview] = useState<string | null>(null);
 	const { id } = useParams();
-    const [productName, setProductName] = useState("");
-    const [brand, setBrand] = useState("");
-    const [purchaseDate, setPurchaseDate] = useState("");
-    const [warrantyDurationMonths, setWarrantyDurationMonths] = useState("");
-    const [receiptImage, setReceiptImage] = useState<File | null>(null);
-    const [serialNumber, setSerialNumber] = useState("");
-    const [purchaseLocation, setPurchaseLocation] = useState("");
-    const [warrantyType, setWarrantyType] = useState("");
-    const [notes, setNotes] = useState("");
-    const [customerServiceContact, setCustomerServiceContact] = useState("");
+	const [productName, setProductName] = useState("");
+	const [brand, setBrand] = useState("");
+	const [purchaseDate, setPurchaseDate] = useState("");
+	const [warrantyDurationMonths, setWarrantyDurationMonths] = useState("");
+	const [receiptImage, setReceiptImage] = useState<File | null>(null);
+	const [serialNumber, setSerialNumber] = useState("");
+	const [purchaseLocation, setPurchaseLocation] = useState("");
+	const [warrantyType, setWarrantyType] = useState("");
+	const [notes, setNotes] = useState("");
+	const [customerServiceContact, setCustomerServiceContact] = useState("");
 
 	useEffect(() => {
 		fetch(`${process.env.NEXT_PUBLIC_API_URL}/items/get/${id}`, {
@@ -44,22 +44,21 @@ export default function EditPage({
 			.then((data) => {
 				console.log("Item data:", data);
 				setImagePreview(`/api/image?id=${id}`);
-                setProductName(data.productName);
-                setBrand(data.brand || "");
-                setPurchaseDate(data.purchaseDate);
-                setWarrantyDurationMonths(data.warrantyDurationMonths);
-                setReceiptImage(null);
-                setSerialNumber(data.serialNumber || "");
-                setPurchaseLocation(data.purchaseLocation || "");
-                setWarrantyType(data.warrantyType || "");
-                setNotes(data.notes || "");
-                setCustomerServiceContact(data.customerServiceContact || "");
-
+				setProductName(data.productName);
+				setBrand(data.brand || "");
+				setPurchaseDate(data.purchaseDate);
+				setWarrantyDurationMonths(data.warrantyDurationMonths);
+				setReceiptImage(null);
+				setSerialNumber(data.serialNumber || "");
+				setPurchaseLocation(data.purchaseLocation || "");
+				setWarrantyType(data.warrantyType || "");
+				setNotes(data.notes || "");
+				setCustomerServiceContact(data.customerServiceContact || "");
 			})
 			.catch((error) => {
 				console.error("Failed to fetch item data:", error);
 			});
-	});
+	}, [id]);
 
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
@@ -127,8 +126,10 @@ export default function EditPage({
 									id="product-name"
 									type="text"
 									required
-                                    value={productName}
-                                    onChange={(e) => setProductName(e.target.value)}
+									value={productName}
+									onChange={(e) =>
+										setProductName(e.target.value)
+									}
 									className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
 								/>
 							</div>
@@ -146,8 +147,8 @@ export default function EditPage({
 									id="brand"
 									name="brand"
 									type="text"
-                                    value={brand}
-                                    onChange={(e) => setBrand(e.target.value)}
+									value={brand}
+									onChange={(e) => setBrand(e.target.value)}
 									className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
 								/>
 							</div>
@@ -166,8 +167,10 @@ export default function EditPage({
 									name="purchase_date"
 									type="date"
 									required
-                                    value={purchaseDate}
-                                    onChange={(e) => setPurchaseDate(e.target.value)}
+									value={purchaseDate}
+									onChange={(e) =>
+										setPurchaseDate(e.target.value)
+									}
 									className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
 								/>
 							</div>
@@ -187,8 +190,12 @@ export default function EditPage({
 									type="number"
 									min="1"
 									required
-                                    value={warrantyDurationMonths}
-                                    onChange={(e) => setWarrantyDurationMonths(e.target.value)}
+									value={warrantyDurationMonths}
+									onChange={(e) =>
+										setWarrantyDurationMonths(
+											e.target.value
+										)
+									}
 									className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
 								/>
 							</div>
@@ -252,8 +259,10 @@ export default function EditPage({
 									id="serial-number"
 									name="serial_number"
 									type="text"
-                                    value={serialNumber}
-                                    onChange={(e) => setSerialNumber(e.target.value)}
+									value={serialNumber}
+									onChange={(e) =>
+										setSerialNumber(e.target.value)
+									}
 									className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
 								/>
 							</div>
@@ -271,8 +280,10 @@ export default function EditPage({
 									id="purchase-location"
 									name="purchase_location"
 									type="text"
-                                    value={purchaseLocation}
-                                    onChange={(e) => setPurchaseLocation(e.target.value)}
+									value={purchaseLocation}
+									onChange={(e) =>
+										setPurchaseLocation(e.target.value)
+									}
 									className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
 								/>
 							</div>
@@ -289,8 +300,10 @@ export default function EditPage({
 								<select
 									id="warranty-type"
 									name="warranty_type"
-                                    value={warrantyType}
-                                    onChange={(e) => setWarrantyType(e.target.value)}
+									value={warrantyType}
+									onChange={(e) =>
+										setWarrantyType(e.target.value)
+									}
 									className="block w-full rounded-md bg-white px-3 py-1.5 pr-8 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
 								>
 									<option value="">—</option>
@@ -315,8 +328,8 @@ export default function EditPage({
 									name="notes"
 									rows={3}
 									maxLength={500}
-                                    value={notes}
-                                    onChange={(e) => setNotes(e.target.value)}
+									value={notes}
+									onChange={(e) => setNotes(e.target.value)}
 									placeholder="Ajouter une remarque..."
 									className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
 								></textarea>
@@ -338,8 +351,12 @@ export default function EditPage({
 									id="customer-support"
 									name="customer_service_contact"
 									type="text"
-                                    value={customerServiceContact}
-                                    onChange={(e) => setCustomerServiceContact(e.target.value)}
+									value={customerServiceContact}
+									onChange={(e) =>
+										setCustomerServiceContact(
+											e.target.value
+										)
+									}
 									placeholder="Email, téléphone, etc."
 									className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
 								/>
@@ -350,6 +367,13 @@ export default function EditPage({
 			</div>
 
 			<div className="mt-6 flex items-center justify-end gap-x-6">
+				<button
+					type="button"
+					onClick={() => (window.location.href = "/dashboard")}
+					className="rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-xs ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+				>
+					Annuler
+				</button>
 				<button
 					type="submit"
 					className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
