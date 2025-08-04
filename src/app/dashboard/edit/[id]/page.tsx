@@ -1,13 +1,20 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, use } from "react";
 import Image from "next/image";
-import { get } from "http";
 
-export default function EditPage({ params }: { params: { id: string } }) {
+export default function EditPage({
+	params,
+}: {
+	params: Promise<{ id: string }>;
+}) {
+	
 	const [imagePreview, setImagePreview] = useState<string | null>(null);
+    const [id, setId] = useState<string | null>(null);
 
 	useEffect(() => {
-		fetch(`${process.env.NEXT_PUBLIC_API_URL}/items/get/${params.id}`, {
+        const { id: _id } = use(params);
+        setId(_id);
+		fetch(`${process.env.NEXT_PUBLIC_API_URL}/items/get/${id}`, {
 			method: "GET",
 			headers: {
 				"Content-Type": "application/json",
@@ -77,14 +84,13 @@ export default function EditPage({ params }: { params: { id: string } }) {
 			.catch((error) => {
 				console.error("Failed to fetch item data:", error);
 			});
-	}, [params.id]);
+	}, [id, params]);
 
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		const formData = new FormData(event.currentTarget);
-		formData.append("id", params.id);
 
-		fetch(`${process.env.NEXT_PUBLIC_API_URL}/items/update`, {
+		fetch(`${process.env.NEXT_PUBLIC_API_URL}/items/update/${id}`, {
 			method: "POST",
 			headers: {
 				Authorization: `Bearer ${
