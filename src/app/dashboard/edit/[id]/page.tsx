@@ -44,17 +44,17 @@ export default function EditPage({
 			.then((data) => {
 				console.log("Item data:", data);
 				setImagePreview(`/api/image?id=${id}`);
-                setProductName(data.product_name);
+                setProductName(data.productName);
                 setBrand(data.brand || "");
-                setPurchaseDate(data.purchase_date);
-                setWarrantyDurationMonths(data.warranty_duration_months);
+                setPurchaseDate(data.purchaseDate);
+                setWarrantyDurationMonths(data.warrantyDurationMonths);
                 setReceiptImage(null);
-                setSerialNumber(data.serial_number || "");
-                setPurchaseLocation(data.purchase_location || "");
-                setWarrantyType(data.warranty_type || "");
+                setSerialNumber(data.serialNumber || "");
+                setPurchaseLocation(data.purchaseLocation || "");
+                setWarrantyType(data.warrantyType || "");
                 setNotes(data.notes || "");
-                setCustomerServiceContact(data.customer_service_contact || "");
-				
+                setCustomerServiceContact(data.customerServiceContact || "");
+
 			})
 			.catch((error) => {
 				console.error("Failed to fetch item data:", error);
