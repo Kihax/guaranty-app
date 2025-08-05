@@ -1,4 +1,12 @@
+"use client"
+
+import { useTheme } from "@/components/ThemeProvider";
+import React from "react";
+import SelectTheme from "@/components/SelectTheme";
+
 export default function DashboardPage() {
+	const { theme, toggleTheme } = useTheme();
+
 	return (
 		<form className="lg:px-14 md:px-8 px-2">
 			<div className="space-y-12">
@@ -66,14 +74,7 @@ export default function DashboardPage() {
 								Thème
 							</label>
 							<div className="mt-2">
-								<select
-									id="theme"
-									name="theme"
-									className="block w-full rounded-md bg-white px-3 py-1.5 pr-8 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-								>
-									<option value="light">Clair</option>
-									<option value="dark">Sombre</option>
-								</select>
+								<SelectTheme />
 							</div>
 						</div>
 

@@ -5,6 +5,7 @@ import Image from "next/image";
 import { getDifference } from "@/app/lib/date";
 
 export default function DashboardPage() {
+	
 	const [data, setData] = React.useState<
 		Array<{ id: number; productName: string; warrantyExpiryDate: string }>
 	>([]);
@@ -64,7 +65,7 @@ export default function DashboardPage() {
 
 	return (
 		<div className="px-5">
-			<div className="fixed bottom-0 z-10 bg-white border-t border-gray-200 py-4 px-6 flex justify-end">
+			<div className="fixed bottom-0 right-0 z-10 bg-white py-4 px-6 flex justify-end">
 				<button
 					type="button"
 					onClick={() => (window.location.href = "/dashboard/add")}

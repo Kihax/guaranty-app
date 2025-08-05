@@ -1,21 +1,16 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import React, { useEffect, useState, use } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 
-export default function EditPage({
-	params,
-}: {
-	params: Promise<{ id: string }>;
-}) {
+export default function EditPage() {
 	const [imagePreview, setImagePreview] = useState<string | null>(null);
 	const { id } = useParams();
 	const [productName, setProductName] = useState("");
 	const [brand, setBrand] = useState("");
 	const [purchaseDate, setPurchaseDate] = useState("");
 	const [warrantyDurationMonths, setWarrantyDurationMonths] = useState("");
-	const [receiptImage, setReceiptImage] = useState<File | null>(null);
+	const [, setReceiptImage] = useState<File | null>(null);
 	const [serialNumber, setSerialNumber] = useState("");
 	const [purchaseLocation, setPurchaseLocation] = useState("");
 	const [warrantyType, setWarrantyType] = useState("");

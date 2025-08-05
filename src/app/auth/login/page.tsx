@@ -78,8 +78,8 @@ export default function Login() {
 				<div className="sm:mx-auto sm:w-full sm:max-w-sm">
 					<Image
 						alt="Your Company"
-						src="/logo.png"
-						className="mx-auto h-10 w-auto"
+						src="/logo_black.png"
+						className="mx-auto h-10 w-auto rounded-2xl"
 					/>
 					<h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
 						Sign in to your account

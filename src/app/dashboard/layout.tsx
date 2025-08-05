@@ -46,7 +46,7 @@ export default function RootLayout({
 									alt="Logo"
 									width={32}
 									height={32}
-									className="h-8 w-auto"
+									className="h-8 w-auto rounded-2xl"
 								/>
 								<span className="ml-2 font-semibold text-lg text-gray-800">
 									Guaranty
