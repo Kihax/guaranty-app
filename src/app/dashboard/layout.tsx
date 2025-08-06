@@ -3,10 +3,8 @@
 import "../globals.css";
 
 import { Fragment, useState, useEffect } from "react";
-import { Dialog, Menu, Transition } from "@headlessui/react";
+import { Menu, Transition } from "@headlessui/react";
 import {
-	Bars3Icon,
-	XMarkIcon,
 	ChevronDownIcon,
 } from "@heroicons/react/24/outline";
 import Image from "next/image";
@@ -17,7 +15,6 @@ export default function RootLayout({
 }: {
 	children: React.ReactNode;
 }) {
-	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 	const [fullName, setFullName] = useState("Utilisateur");
 
 	useEffect(() => {
@@ -46,7 +43,7 @@ export default function RootLayout({
 									alt="Logo"
 									width={32}
 									height={32}
-									className="h-8 w-auto rounded-2xl"
+									className="h-8 w-auto rounded-xl"
 								/>
 								<span className="ml-2 font-semibold text-lg text-gray-800">
 									Guaranty
@@ -67,6 +64,9 @@ export default function RootLayout({
 										height={32}
 										unoptimized
 									/>
+									<span className="ml-2 text-gray-800">
+										{fullName}
+									</span>
 									<ChevronDownIcon className="ml-2 h-4 w-4 text-gray-500" />
 								</Menu.Button>
 								<Transition

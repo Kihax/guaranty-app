@@ -3,12 +3,46 @@
 import React, { useEffect, useState } from "react";
 import SelectTheme from "@/components/SelectTheme";
 import Image from "next/image";
+import DeleteAccountDialog from "@/components/DeleteAccountDialog";
 
 export default function DashboardPage() {
 	const [fullName, setFullName] = useState("");
 	const [imagePreview, setImagePreview] = useState<string | null>(
 		`/api/profile-image`
 	);
+	const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+
+	const handleDeleteAccount = async (password: string) => {
+		try {
+			const response = await fetch(
+				`${process.env.NEXT_PUBLIC_API_URL}/auth/profile/delete`,
+				{
+					method: "DELETE",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${
+							document.cookie
+								.split("; ")
+								.find((row) => row.startsWith("token="))
+								?.split("=")[1] || ""
+						}`,
+					},
+					body: JSON.stringify({ password }),
+				}
+			);
+			if (!response.ok) {
+				throw new Error("Failed to delete account");
+			}
+
+			//logout
+			fetch("/api/logout").then(() => {
+				window.location.href = "/"; // Redirect to home after deletion
+			});
+		} catch (error) {
+			console.error("Error deleting account:", error);
+			alert("Erreur lors de la suppression du compte.");
+		}
+	};
 
 	useEffect(() => {
 		setFullName(
@@ -64,7 +98,7 @@ export default function DashboardPage() {
 				console.log("Profile updated successfully:", data);
 				fetch("/api/update-cookie")
 					.then((res) => res.json())
-					.then((data) => {
+					.then(() => {
 						window.location.reload(); // Reload to reflect changes
 					});
 			})
@@ -194,6 +228,7 @@ export default function DashboardPage() {
 							</p>
 							<div className="mt-4">
 								<button
+									onClick={() => setDeleteDialogOpen(true)}
 									type="button"
 									className="rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-red-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
 								>
@@ -219,6 +254,12 @@ export default function DashboardPage() {
 					Enregistrer
 				</button>
 			</div>
+
+			<DeleteAccountDialog
+				open={deleteDialogOpen}
+				setOpen={setDeleteDialogOpen}
+				onDelete={handleDeleteAccount}
+			/>
 		</form>
 	);
 }
