@@ -1,14 +1,77 @@
-"use client"
+"use client";
 
-import { useTheme } from "@/components/ThemeProvider";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SelectTheme from "@/components/SelectTheme";
+import Image from "next/image";
 
 export default function DashboardPage() {
-	const { theme, toggleTheme } = useTheme();
+	const [fullName, setFullName] = useState("");
+	const [imagePreview, setImagePreview] = useState<string | null>(
+		`/api/profile-image`
+	);
+
+	useEffect(() => {
+		setFullName(
+			document.cookie
+				.split("; ")
+				.find((row) => row.startsWith("fullName="))
+				?.split("=")[1] || ""
+		);
+	}, []);
+
+	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const file = e.target.files?.[0];
+		if (file) {
+			const reader = new FileReader();
+			reader.onloadend = () => {
+				setImagePreview(reader.result as string);
+			};
+			reader.readAsDataURL(file);
+		} else {
+			setImagePreview(null);
+		}
+	};
+
+	const handleSubmit = (e: React.FormEvent) => {
+		e.preventDefault();
+		const formData = new FormData();
+		formData.append("fullName", fullName);
+		const fileInput = e.currentTarget.querySelector('input[type="file"]') as HTMLInputElement;
+		if (fileInput.files && fileInput.files[0]) {
+			formData.append("profileImage", fileInput.files[0]);
+		}
+		fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/profile/update`, {
+			method: "POST",
+			headers: {
+				Authorization: `Bearer ${
+					document.cookie
+						.split("; ")
+						.find((row) => row.startsWith("token="))
+						?.split("=")[1] || ""
+				}`,
+			},
+			body: formData,
+		}).then((response) => {
+			if (!response.ok) {
+				throw new Error("Network response was not ok");
+			}
+			return response.json();
+		}).then((data) => {
+			console.log("Profile updated successfully:", data);
+			fetch("/api/update-cookie")
+				.then((res) => res.json())
+				.then((data) => {
+					console.log("Cookies updated:", data);
+				}
+			);
+		}).catch((error) => {
+			console.error("Error updating profile:", error);
+		});
+	}
+
 
 	return (
-		<form className="lg:px-14 md:px-8 px-2">
+		<form className="lg:px-14 md:px-8 px-2" onSubmit={handleSubmit}>
 			<div className="space-y-12">
 				<div className="border-b border-gray-900/10 pb-12">
 					<h2 className="text-base/7 font-semibold text-gray-900">
@@ -21,7 +84,7 @@ export default function DashboardPage() {
 					<div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 						<div className="sm:col-span-4">
 							<label
-								htmlFor="username"
+								htmlFor="fullName"
 								className="block text-sm/6 font-medium text-gray-900"
 							>
 								Nom d&apos;utilisateur
@@ -29,9 +92,13 @@ export default function DashboardPage() {
 							<div className="mt-2">
 								<input
 									type="text"
-									name="username"
-									id="username"
-									autoComplete="username"
+									name="fullName"
+									id="fullName"
+									value={fullName}
+									onChange={(e) =>
+										setFullName(e.target.value)
+									}
+									autoComplete="fullName"
 									className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
 								/>
 							</div>
@@ -45,24 +112,40 @@ export default function DashboardPage() {
 								Photo de profil
 							</label>
 							<div className="mt-2 flex items-center gap-x-3">
-								<svg
-									viewBox="0 0 24 24"
-									fill="currentColor"
-									aria-hidden="true"
-									className="size-12 text-gray-300"
-								>
-									<path
-										fillRule="evenodd"
-										d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653ZM6.145 17.812A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"
-										clipRule="evenodd"
+								{imagePreview ? (
+									<Image
+										width={64}
+										height={64}
+										src={imagePreview}
+										alt="Aperçu du ticket"
+										className="h-16 rounded-md border border-gray-300"
 									/>
-								</svg>
-								<button
-									type="button"
-									className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-xs ring-1 ring-gray-300 ring-inset hover:bg-gray-50"
-								>
-									Modifier
-								</button>
+								) : (
+									<span className="h-16 w-16 flex items-center justify-center rounded-md bg-gray-100 text-gray-400 border border-dashed border-gray-300">
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											className="h-6 w-6"
+											fill="none"
+											viewBox="0 0 24 24"
+											stroke="currentColor"
+										>
+											<path
+												strokeLinecap="round"
+												strokeLinejoin="round"
+												strokeWidth="1.5"
+												d="M12 4.5v15m7.5-7.5h-15"
+											/>
+										</svg>
+									</span>
+								)}
+								<input
+									type="file"
+									id="receiptImage"
+									name="receipt"
+									accept="image/*"
+									onChange={handleFileChange}
+									className="block text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
+								/>
 							</div>
 						</div>
 
