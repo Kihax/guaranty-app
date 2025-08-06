@@ -210,6 +210,7 @@ export default function EditPage() {
 										height={64}
 										src={imagePreview}
 										alt="Aperçu du ticket"
+										unoptimized
 										className="h-16 rounded-md border border-gray-300"
 									/>
 								) : (

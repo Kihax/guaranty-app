@@ -65,6 +65,7 @@ export default function RootLayout({
 										alt="Avatar utilisateur"
 										width={32}
 										height={32}
+										unoptimized
 									/>
 									<ChevronDownIcon className="ml-2 h-4 w-4 text-gray-500" />
 								</Menu.Button>

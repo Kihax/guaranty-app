@@ -102,6 +102,7 @@ export default function DashboardPage() {
 								height={48}
 								alt=""
 								src={`/api/image?id=${item.id}`}
+								unoptimized
 								className="size-12 flex-none rounded-2xl bg-gray-50"
 							/>
 							<div className="min-w-0 flex-auto">
