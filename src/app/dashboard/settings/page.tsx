@@ -120,6 +120,7 @@ export default function DashboardPage() {
 										width={64}
 										height={64}
 										src={imagePreview}
+										unoptimized
 										alt="Aperçu du ticket"
 										className="h-16 rounded-md border border-gray-300"
 									/>
