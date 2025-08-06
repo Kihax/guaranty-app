@@ -36,7 +36,9 @@ export default function DashboardPage() {
 		e.preventDefault();
 		const formData = new FormData();
 		formData.append("fullName", fullName);
-		const fileInput = e.currentTarget.querySelector('input[type="file"]') as HTMLInputElement;
+		const fileInput = e.currentTarget.querySelector(
+			'input[type="file"]'
+		) as HTMLInputElement;
 		if (fileInput.files && fileInput.files[0]) {
 			formData.append("profileImage", fileInput.files[0]);
 		}
@@ -51,24 +53,25 @@ export default function DashboardPage() {
 				}`,
 			},
 			body: formData,
-		}).then((response) => {
-			if (!response.ok) {
-				throw new Error("Network response was not ok");
-			}
-			return response.json();
-		}).then((data) => {
-			console.log("Profile updated successfully:", data);
-			fetch("/api/update-cookie")
-				.then((res) => res.json())
-				.then((data) => {
-					console.log("Cookies updated:", data);
+		})
+			.then((response) => {
+				if (!response.ok) {
+					throw new Error("Network response was not ok");
 				}
-			);
-		}).catch((error) => {
-			console.error("Error updating profile:", error);
-		});
-	}
-
+				return response.json();
+			})
+			.then((data) => {
+				console.log("Profile updated successfully:", data);
+				fetch("/api/update-cookie")
+					.then((res) => res.json())
+					.then((data) => {
+						window.location.reload(); // Reload to reflect changes
+					});
+			})
+			.catch((error) => {
+				console.error("Error updating profile:", error);
+			});
+	};
 
 	return (
 		<form className="lg:px-14 md:px-8 px-2" onSubmit={handleSubmit}>
