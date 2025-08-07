@@ -1,11 +1,2 @@
 /* ...existing code... */
 @import "tailwindcss";
-
-/* Optionnel : styles personnalisés pour dark mode */
-body {
-  @apply bg-white text-gray-900;
-}
-.dark body {
-  @apply bg-gray-900 text-gray-100;
-}
-/* ...existing code... */
