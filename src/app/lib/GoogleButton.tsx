@@ -4,6 +4,7 @@ import Image from "next/image";
 interface ButtonGoogleCustomProps {
 	onSuccess: (accessToken: string) => void;
 	onError?: (error: Error) => void;
+	text?: string;
 }
 
 declare global {
@@ -30,6 +31,7 @@ declare global {
 export default function ButtonGoogleCustom({
 	onSuccess,
 	onError,
+	text
 }: ButtonGoogleCustomProps) {
 	type InitTokenClientType = {
 		requestAccessToken: () => void;
@@ -92,7 +94,7 @@ export default function ButtonGoogleCustom({
 				width={24}
 				height={24}
 			/>
-			<span>Sign in with Google</span>
+			<span>{text || "Sign in with Google"}</span>
 		</button>
 	);
 }
