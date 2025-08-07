@@ -98,11 +98,11 @@ export default function EditPage() {
 	return (
 		<form className="lg:px-14 md:px-8 px-2" onSubmit={handleSubmit}>
 			<div className="space-y-12">
-				<div className="border-b border-gray-900/10 pb-12">
-					<h2 className="text-base/7 font-semibold text-gray-900">
+				<div className="border-b border-gray-900/10 dark:border-gray-100/10 pb-12">
+					<h2 className="text-base/7 font-semibold text-gray-900 dark:text-gray-100">
 						Garantie produit
 					</h2>
-					<p className="mt-1 text-sm/6 text-gray-600">
+					<p className="mt-1 text-sm/6 text-gray-600 dark:text-gray-400">
 						Renseignez les informations liées à l&apos;achat et à la
 						garantie de votre produit.
 					</p>
@@ -111,7 +111,7 @@ export default function EditPage() {
 						<div className="sm:col-span-4">
 							<label
 								htmlFor="product-name"
-								className="block text-sm/6 font-medium text-gray-900"
+								className="block text-sm/6 font-medium text-gray-900 dark:text-gray-100"
 							>
 								Nom de l&apos;objet
 							</label>
@@ -125,7 +125,7 @@ export default function EditPage() {
 									onChange={(e) =>
 										setProductName(e.target.value)
 									}
-									className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+									className="block w-full rounded-md bg-white dark:bg-gray-800 px-3 py-1.5 text-base text-gray-900 dark:text-gray-100 outline-1 -outline-offset-1 outline-gray-300 dark:outline-gray-700 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
 								/>
 							</div>
 						</div>
@@ -133,7 +133,7 @@ export default function EditPage() {
 						<div className="sm:col-span-2">
 							<label
 								htmlFor="brand"
-								className="block text-sm/6 font-medium text-gray-900"
+								className="block text-sm/6 font-medium text-gray-900 dark:text-gray-100"
 							>
 								Marque (optionnel)
 							</label>
@@ -144,7 +144,7 @@ export default function EditPage() {
 									type="text"
 									value={brand}
 									onChange={(e) => setBrand(e.target.value)}
-									className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+									className="block w-full rounded-md bg-white dark:bg-gray-800 px-3 py-1.5 text-base text-gray-900 dark:text-gray-100 outline-1 -outline-offset-1 outline-gray-300 dark:outline-gray-700 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
 								/>
 							</div>
 						</div>
@@ -152,7 +152,7 @@ export default function EditPage() {
 						<div className="sm:col-span-3">
 							<label
 								htmlFor="purchase-date"
-								className="block text-sm/6 font-medium text-gray-900"
+								className="block text-sm/6 font-medium text-gray-900 dark:text-gray-100"
 							>
 								Date d&apos;achat
 							</label>
@@ -166,7 +166,7 @@ export default function EditPage() {
 									onChange={(e) =>
 										setPurchaseDate(e.target.value)
 									}
-									className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+									className="block w-full rounded-md bg-white dark:bg-gray-800 px-3 py-1.5 text-base text-gray-900 dark:text-gray-100 outline-1 -outline-offset-1 outline-gray-300 dark:outline-gray-700 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
 								/>
 							</div>
 						</div>
@@ -174,7 +174,7 @@ export default function EditPage() {
 						<div className="sm:col-span-3">
 							<label
 								htmlFor="warranty-duration"
-								className="block text-sm/6 font-medium text-gray-900"
+								className="block text-sm/6 font-medium text-gray-900 dark:text-gray-100"
 							>
 								Durée de la garantie (mois)
 							</label>
@@ -191,7 +191,7 @@ export default function EditPage() {
 											e.target.value
 										)
 									}
-									className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+									className="block w-full rounded-md bg-white dark:bg-gray-800 px-3 py-1.5 text-base text-gray-900 dark:text-gray-100 outline-1 -outline-offset-1 outline-gray-300 dark:outline-gray-700 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
 								/>
 							</div>
 						</div>
@@ -199,7 +199,7 @@ export default function EditPage() {
 						<div className="col-span-full">
 							<label
 								htmlFor="receiptImage"
-								className="block text-sm font-medium leading-6 text-gray-900"
+								className="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-100"
 							>
 								Image du ticket
 							</label>
@@ -211,10 +211,10 @@ export default function EditPage() {
 										src={imagePreview}
 										alt="Aperçu du ticket"
 										unoptimized
-										className="h-16 rounded-md border border-gray-300"
+										className="h-16 rounded-md border border-gray-300 dark:border-gray-700"
 									/>
 								) : (
-									<span className="h-16 w-16 flex items-center justify-center rounded-md bg-gray-100 text-gray-400 border border-dashed border-gray-300">
+									<span className="h-16 w-16 flex items-center justify-center rounded-md bg-gray-100 dark:bg-gray-800 text-gray-400 border border-dashed border-gray-300 dark:border-gray-700">
 										<svg
 											xmlns="http://www.w3.org/2000/svg"
 											className="h-6 w-6"
@@ -238,7 +238,7 @@ export default function EditPage() {
 									name="receipt"
 									accept="image/*"
 									onChange={handleFileChange}
-									className="block text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
+									className="block text-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 dark:file:bg-gray-800 file:text-indigo-700 dark:file:text-gray-100 hover:file:bg-indigo-100 dark:hover:file:bg-gray-700"
 								/>
 							</div>
 						</div>
@@ -246,7 +246,7 @@ export default function EditPage() {
 						<div className="sm:col-span-3">
 							<label
 								htmlFor="serial-number"
-								className="block text-sm/6 font-medium text-gray-900"
+								className="block text-sm/6 font-medium text-gray-900 dark:text-gray-100"
 							>
 								Numéro de série (optionnel)
 							</label>
@@ -259,7 +259,7 @@ export default function EditPage() {
 									onChange={(e) =>
 										setSerialNumber(e.target.value)
 									}
-									className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+									className="block w-full rounded-md bg-white dark:bg-gray-800 px-3 py-1.5 text-base text-gray-900 dark:text-gray-100 outline-1 -outline-offset-1 outline-gray-300 dark:outline-gray-700 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
 								/>
 							</div>
 						</div>
@@ -267,7 +267,7 @@ export default function EditPage() {
 						<div className="sm:col-span-3">
 							<label
 								htmlFor="serial-number"
-								className="block text-sm/6 font-medium text-gray-900"
+								className="block text-sm/6 font-medium text-gray-900 dark:text-gray-100"
 							>
 								Lieu d&apos;achat
 							</label>
@@ -280,7 +280,7 @@ export default function EditPage() {
 									onChange={(e) =>
 										setPurchaseLocation(e.target.value)
 									}
-									className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+									className="block w-full rounded-md bg-white dark:bg-gray-800 px-3 py-1.5 text-base text-gray-900 dark:text-gray-100 outline-1 -outline-offset-1 outline-gray-300 dark:outline-gray-700 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
 								/>
 							</div>
 						</div>
@@ -288,7 +288,7 @@ export default function EditPage() {
 						<div className="sm:col-span-3">
 							<label
 								htmlFor="warranty-type"
-								className="block text-sm/6 font-medium text-gray-900"
+								className="block text-sm/6 font-medium text-gray-900 dark:text-gray-100"
 							>
 								Type de garantie (optionnel)
 							</label>
@@ -300,7 +300,7 @@ export default function EditPage() {
 									onChange={(e) =>
 										setWarrantyType(e.target.value)
 									}
-									className="block w-full rounded-md bg-white px-3 py-1.5 pr-8 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+									className="block w-full rounded-md bg-white dark:bg-gray-800 px-3 py-1.5 pr-8 text-base text-gray-900 dark:text-gray-100 outline-1 -outline-offset-1 outline-gray-300 dark:outline-gray-700 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
 								>
 									<option value="">—</option>
 									<option value="constructeur">
@@ -314,7 +314,7 @@ export default function EditPage() {
 						<div className="col-span-full">
 							<label
 								htmlFor="notes"
-								className="block text-sm/6 font-medium text-gray-900"
+								className="block text-sm/6 font-medium text-gray-900 dark:text-gray-100"
 							>
 								Note (optionnel)
 							</label>
@@ -327,10 +327,10 @@ export default function EditPage() {
 									value={notes}
 									onChange={(e) => setNotes(e.target.value)}
 									placeholder="Ajouter une remarque..."
-									className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+									className="block w-full rounded-md bg-white dark:bg-gray-800 px-3 py-1.5 text-base text-gray-900 dark:text-gray-100 outline-1 -outline-offset-1 outline-gray-300 dark:outline-gray-700 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
 								></textarea>
 							</div>
-							<p className="mt-2 text-sm/6 text-gray-600">
+							<p className="mt-2 text-sm/6 text-gray-600 dark:text-gray-400">
 								500 caractères maximum.
 							</p>
 						</div>
@@ -338,7 +338,7 @@ export default function EditPage() {
 						<div className="col-span-full">
 							<label
 								htmlFor="customer-support"
-								className="block text-sm/6 font-medium text-gray-900"
+								className="block text-sm/6 font-medium text-gray-900 dark:text-gray-100"
 							>
 								Contact service consommateur (optionnel)
 							</label>
@@ -354,7 +354,7 @@ export default function EditPage() {
 										)
 									}
 									placeholder="Email, téléphone, etc."
-									className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+									className="block w-full rounded-md bg-white dark:bg-gray-800 px-3 py-1.5 text-base text-gray-900 dark:text-gray-100 outline-1 -outline-offset-1 outline-gray-300 dark:outline-gray-700 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
 								/>
 							</div>
 						</div>
@@ -366,7 +366,7 @@ export default function EditPage() {
 				<button
 					type="button"
 					onClick={() => (window.location.href = "/dashboard")}
-					className="rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-xs ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+					className="rounded-md bg-white dark:bg-gray-800 px-3 py-2 text-sm font-semibold text-gray-900 dark:text-gray-100 shadow-xs ring-1 ring-inset ring-gray-300 dark:ring-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
 				>
 					Annuler
 				</button>

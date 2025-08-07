@@ -14,7 +14,7 @@ export default function DashboardPage() {
 
 	const handleDeleteAccount = async (password: string) => {
 		try {
-			const response = await fetch(
+			await fetch(
 				`${process.env.NEXT_PUBLIC_API_URL}/auth/profile/delete`,
 				{
 					method: "DELETE",
@@ -29,15 +29,18 @@ export default function DashboardPage() {
 					},
 					body: JSON.stringify({ password }),
 				}
-			);
-			if (!response.ok) {
-				throw new Error("Failed to delete account");
-			}
+			)
+				.then((res) => res.json())
+				.then((data) => {
+					if (!data.valid) {
+						throw new Error("Failed to delete account");
+					}
 
-			//logout
-			fetch("/api/logout").then(() => {
-				window.location.href = "/"; // Redirect to home after deletion
-			});
+					//logout
+					fetch("/api/logout").then(() => {
+						window.location.href = "/"; // Redirect to home after deletion
+					});
+				});
 		} catch (error) {
 			console.error("Error deleting account:", error);
 			alert("Erreur lors de la suppression du compte.");
@@ -110,11 +113,11 @@ export default function DashboardPage() {
 	return (
 		<form className="lg:px-14 md:px-8 px-2" onSubmit={handleSubmit}>
 			<div className="space-y-12">
-				<div className="border-b border-gray-900/10 pb-12">
-					<h2 className="text-base/7 font-semibold text-gray-900">
+				<div className="border-b border-gray-900/10 dark:border-gray-100/10 pb-12">
+					<h2 className="text-base/7 font-semibold text-gray-900 dark:text-gray-100">
 						Paramètres du profil
 					</h2>
-					<p className="mt-1 text-sm/6 text-gray-600">
+					<p className="mt-1 text-sm/6 text-gray-600 dark:text-gray-400">
 						Personnalisez votre expérience utilisateur.
 					</p>
 
@@ -122,7 +125,7 @@ export default function DashboardPage() {
 						<div className="sm:col-span-4">
 							<label
 								htmlFor="fullName"
-								className="block text-sm/6 font-medium text-gray-900"
+								className="block text-sm/6 font-medium text-gray-900 dark:text-gray-100"
 							>
 								Nom d&apos;utilisateur
 							</label>
@@ -136,7 +139,7 @@ export default function DashboardPage() {
 										setFullName(e.target.value)
 									}
 									autoComplete="fullName"
-									className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+									className="block w-full rounded-md bg-white dark:bg-gray-800 px-3 py-1.5 text-base text-gray-900 dark:text-gray-100 outline-1 -outline-offset-1 outline-gray-300 dark:outline-gray-700 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
 								/>
 							</div>
 						</div>
@@ -144,7 +147,7 @@ export default function DashboardPage() {
 						<div className="col-span-full">
 							<label
 								htmlFor="user-photo"
-								className="block text-sm/6 font-medium text-gray-900"
+								className="block text-sm/6 font-medium text-gray-900 dark:text-gray-100"
 							>
 								Photo de profil
 							</label>
@@ -156,10 +159,10 @@ export default function DashboardPage() {
 										src={imagePreview}
 										unoptimized
 										alt="Aperçu du ticket"
-										className="h-16 rounded-md border border-gray-300"
+										className="h-16 rounded-md border border-gray-300 dark:border-gray-700"
 									/>
 								) : (
-									<span className="h-16 w-16 flex items-center justify-center rounded-md bg-gray-100 text-gray-400 border border-dashed border-gray-300">
+									<span className="h-16 w-16 flex items-center justify-center rounded-md bg-gray-100 dark:bg-gray-800 text-gray-400 border border-dashed border-gray-300 dark:border-gray-700">
 										<svg
 											xmlns="http://www.w3.org/2000/svg"
 											className="h-6 w-6"
@@ -182,7 +185,7 @@ export default function DashboardPage() {
 									name="receipt"
 									accept="image/*"
 									onChange={handleFileChange}
-									className="block text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
+									className="block text-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 dark:file:bg-gray-800 file:text-indigo-700 dark:file:text-gray-100 hover:file:bg-indigo-100 dark:hover:file:bg-gray-700"
 								/>
 							</div>
 						</div>
@@ -190,7 +193,7 @@ export default function DashboardPage() {
 						<div className="sm:col-span-3">
 							<label
 								htmlFor="theme"
-								className="block text-sm/6 font-medium text-gray-900"
+								className="block text-sm/6 font-medium text-gray-900 dark:text-gray-100"
 							>
 								Thème
 							</label>
@@ -202,7 +205,7 @@ export default function DashboardPage() {
 						<div className="sm:col-span-3">
 							<label
 								htmlFor="language"
-								className="block text-sm/6 font-medium text-gray-900"
+								className="block text-sm/6 font-medium text-gray-900 dark:text-gray-100"
 							>
 								Langue
 							</label>
@@ -210,7 +213,7 @@ export default function DashboardPage() {
 								<select
 									id="language"
 									name="language"
-									className="block w-full rounded-md bg-white px-3 py-1.5 pr-8 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+									className="block w-full rounded-md bg-white dark:bg-gray-800 px-3 py-1.5 pr-8 text-base text-gray-900 dark:text-gray-100 outline-1 -outline-offset-1 outline-gray-300 dark:outline-gray-700 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
 								>
 									<option value="fr">Français</option>
 									<option value="en">Anglais</option>
@@ -220,10 +223,10 @@ export default function DashboardPage() {
 						</div>
 
 						<div className="col-span-full">
-							<label className="block text-sm/6 font-medium text-gray-900">
+							<label className="block text-sm/6 font-medium text-gray-900 dark:text-gray-100">
 								Supprimer le compte
 							</label>
-							<p className="mt-2 text-sm/6 text-gray-600">
+							<p className="mt-2 text-sm/6 text-gray-600 dark:text-gray-400">
 								Cette action est irréversible.
 							</p>
 							<div className="mt-4">
