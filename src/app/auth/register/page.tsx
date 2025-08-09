@@ -6,6 +6,13 @@ import Image from "next/image";
 import Link from "next/link";
 import GoogleButton from "../../lib/GoogleButton";
 import { useRouter } from "next/navigation";
+import { Playwrite_HU } from 'next/font/google'
+
+const playwriteHU = Playwrite_HU({
+  weight: ['400'], // Choisis les poids que tu veux
+  display: 'swap',        // Pour éviter le flash de texte
+})
+
 
 export default function Register() {
 	const [email, setEmail] = useState("");
@@ -88,9 +95,9 @@ export default function Register() {
 					height={2000}
 				/>
 
-				<h2 className="absolute bottom-5 w-full bg-white/50 p-3 bg-gradient-to-r rounded-2xl text-center">
-					Start your adventure on Guaranty
-				</h2>
+				<div className="absolute bottom-5 text-3xl w-full text-center">
+					<h2 className={`${playwriteHU.className} bg-white/50 p-3 bg-gradient-to-r rounded-2xl`}>Start your adventure on Guaranty</h2>
+				</div>
 			</div>
 
 			<div className="xl:w-1/2 md:w-2/3 w-full h-screen p-10 flex flex-col justify-center">

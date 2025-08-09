@@ -7,6 +7,13 @@ import Link from "next/link";
 import GoogleButton from "../../lib/GoogleButton";
 import { useRouter } from 'next/navigation';
 
+import { Playwrite_HU } from 'next/font/google'
+
+const playwriteHU = Playwrite_HU({
+  weight: ['400'], // Choisis les poids que tu veux
+  display: 'swap',        // Pour éviter le flash de texte
+})
+
 
 export default function Login() {
 	const [email, setEmail] = useState("");
@@ -72,6 +79,7 @@ export default function Login() {
 	};
 
 	return (
+		<>
 		<section className="bg-gray-100 flex min-h-screen items-center justify-center overflow-hidden">
 			
 			<div className="xl:w-1/2 md:w-2/3 w-full h-screen p-10 flex flex-col justify-center">
@@ -242,10 +250,15 @@ export default function Login() {
 					height={2000}
 				/>
 
-				<h2 className="absolute bottom-5 text-3xl w-full bg-gradient-to-r bg-white/50 p-3 rounded-2xl text-center">
-					Welcome back to Guaranty
-				</h2>
+				<div className="absolute bottom-5 text-3xl w-full text-center">
+					<h2
+						className={`${playwriteHU.className} bg-white/50 p-3 bg-gradient-to-r rounded-2xl`}
+					>
+						Start your adventure on Guaranty
+					</h2>
+				</div>
 			</div>
 		</section>
+		</>
 	);
 }
