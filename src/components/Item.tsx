@@ -10,37 +10,46 @@ interface ItemProps {
 		// Add other properties as needed
 	};
 
-    setData:  React.Dispatch<React.SetStateAction<Array<{ id: number; productName: string; warrantyExpiryDate: string }>>>;
+	setData: React.Dispatch<
+		React.SetStateAction<
+			Array<{
+				id: number;
+				productName: string;
+				warrantyExpiryDate: string;
+			}>
+		>
+	>;
 }
 
 export default function Item({ item, setData }: ItemProps) {
-
-    const handleDelete = (id: number | string) => {
-            fetch(`${process.env.NEXT_PUBLIC_API_URL}/items/delete/${id}`, {
-                method: "DELETE",
-                headers: {
-                    Authorization: `Bearer ${
-                        document.cookie
-                            .split("; ")
-                            .find((row) => row.startsWith("token=")
-                            )?.split("=")[1] || ""
-                    }`,
-                },	
-            })
-                .then((response) => {
-                    if (!response.ok) {
-                        throw new Error("Network response was not ok");
-                    }
-                    setData((prevData) => prevData.filter((item) => item.id !== id));
-                })
-                .catch((error) => {
-                    console.error("Error deleting item:", error);
-                });
-        };
+	const handleDelete = (id: number | string) => {
+		fetch(`${process.env.NEXT_PUBLIC_API_URL}/items/delete/${id}`, {
+			method: "DELETE",
+			headers: {
+				Authorization: `Bearer ${
+					document.cookie
+						.split("; ")
+						.find((row) => row.startsWith("token="))
+						?.split("=")[1] || ""
+				}`,
+			},
+		})
+			.then((response) => {
+				if (!response.ok) {
+					throw new Error("Network response was not ok");
+				}
+				setData((prevData) =>
+					prevData.filter((item) => item.id !== id)
+				);
+			})
+			.catch((error) => {
+				console.error("Error deleting item:", error);
+			});
+	};
 
 	return (
 		<li
-			className="flex justify-between gap-x-6 p-3 bg-gray-50 rounded-lg"
+			className="flex justify-between gap-x-6 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg"
 			key={item.id}
 		>
 			<div className="flex min-w-0 gap-x-4">
@@ -50,13 +59,13 @@ export default function Item({ item, setData }: ItemProps) {
 					alt=""
 					src={`/api/image?id=${item.id}`}
 					unoptimized
-					className="size-12 flex-none rounded-2xl bg-gray-50"
+					className="size-12 flex-none rounded-2xl bg-gray-50 dark:bg-gray-700"
 				/>
 				<div className="min-w-0 flex-auto">
-					<p className="text-sm/6 font-semibold text-gray-900">
+					<p className="text-sm/6 font-semibold text-gray-900 dark:text-gray-100">
 						{item.productName}
 					</p>
-					<p className="mt-1 truncate text-xs/5 text-gray-500">
+					<p className="mt-1 truncate text-xs/5 text-gray-500 dark:text-gray-400">
 						{(() => {
 							const diff = getDifference(
 								new Date(item.warrantyExpiryDate)
@@ -74,13 +83,13 @@ export default function Item({ item, setData }: ItemProps) {
 							}
 
 							let badgeClass =
-								"bg-gray-100 text-gray-800 ring-gray-300";
+								"bg-gray-100 text-gray-800 ring-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:ring-gray-600";
 							if (diff.isPast) {
 								badgeClass =
-									"bg-red-200 text-red-800 ring-red-400";
+									"bg-red-200 text-red-800 ring-red-400 dark:bg-red-900 dark:text-red-200 dark:ring-red-700";
 							} else if (diff.totalMonths < 2) {
 								badgeClass =
-									"bg-red-100 text-red-700 ring-red-300";
+									"bg-red-100 text-red-700 ring-red-300 dark:bg-red-800 dark:text-red-200 dark:ring-red-600";
 							}
 
 							return (
@@ -101,7 +110,7 @@ export default function Item({ item, setData }: ItemProps) {
 					onClick={() =>
 						(window.location.href = `/dashboard/edit/${item.id}`)
 					}
-					className="inline-flex items-center rounded-md bg-white px-2 py-1.5 text-sm font-medium text-gray-700 ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+					className="inline-flex items-center rounded-md bg-white dark:bg-gray-900 px-2 py-1.5 text-sm font-medium text-gray-700 dark:text-gray-200 ring-1 ring-inset ring-gray-300 dark:ring-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800"
 				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
