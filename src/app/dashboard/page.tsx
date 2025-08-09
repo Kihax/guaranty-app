@@ -61,7 +61,7 @@ export default function DashboardPage() {
 			<AddButtonDashboard />
 
 			<h1 className="text-2xl font-bold">Items</h1>
-			<ul role="list" className="divide-y divide-gray-100 px-5 mb-3">
+			<ul role="list" className="divide-y divide-gray-100 px-5 mb-8">
 				{data.map((item) => (
 					<Item key={item.id} item={item} setData={setData} />
 				))}
