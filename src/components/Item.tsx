@@ -56,7 +56,7 @@ export default function Item({ item, setData }: ItemProps) {
   return (
 	<>
 	  <li
-		className="flex justify-between gap-x-6 p-3 bg-gray-100 dark:bg-gray-800 rounded-lg"
+		className="flex justify-between gap-x-6 p-3 bg-gray-100 dark:bg-gray-800 rounded-lg my-2 cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
 		key={item.id}
 		onClick={() =>
 		  (window.location.href = `/dashboard/view?id=${item.id}`)
