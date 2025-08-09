@@ -72,7 +72,7 @@ export default function DashboardPage() {
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
 		const formData = new FormData();
-		formData.append("fullName", decodeURIComponent(fullName));
+		formData.append("fullName", decodeURI(fullName));
 		const fileInput = e.currentTarget.querySelector(
 			'input[type="file"]'
 		) as HTMLInputElement;
