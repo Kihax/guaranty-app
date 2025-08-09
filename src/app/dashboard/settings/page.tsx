@@ -49,10 +49,12 @@ export default function DashboardPage() {
 
 	useEffect(() => {
 		setFullName(
-			document.cookie
-				.split("; ")
-				.find((row) => row.startsWith("fullName="))
-				?.split("=")[1] || ""
+			decodeURI(
+				document.cookie
+					.split("; ")
+					.find((row) => row.startsWith("fullName="))
+					?.split("=")[1] || ""
+			) 
 		);
 	}, []);
 
@@ -72,7 +74,7 @@ export default function DashboardPage() {
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
 		const formData = new FormData();
-		formData.append("fullName", decodeURI(fullName));
+		formData.append("fullName", fullName);
 		const fileInput = e.currentTarget.querySelector(
 			'input[type="file"]'
 		) as HTMLInputElement;
