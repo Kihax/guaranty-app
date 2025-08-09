@@ -1,49 +1,136 @@
 import Image from "next/image";
+import { Dialog, DialogPanel } from "@headlessui/react";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { useState } from "react";
+
+const navigation = [
+	{ name: "fonctionnalités", href: "#features" },
+	{ name: "Prix", href: "#pricing" },
+	{ name: "FAQ", href: "#faq" },
+];
 
 export default function HomePage() {
-const features = [
-  {
-	icon: (
-	  <svg className="w-8 h-8 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
-		<rect x="3" y="5" width="18" height="14" rx="3" fill="#EEF2FF" stroke="#6366F1" strokeWidth="1.5" />
-		<path d="M7 9h10M7 13h6" stroke="#6366F1" strokeWidth="1.5" strokeLinecap="round" />
-		<circle cx="17" cy="13" r="1" fill="#6366F1" />
-	  </svg>
-	),
-	title: "Factures sécurisées",
-	desc: "Stockez toutes vos factures dans un espace chiffré et sécurisé.",
-  },
-  {
-	icon: (
-	  <svg className="w-8 h-8 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
-		<path d="M12 3v18M21 12H3" stroke="#6366F1" strokeWidth="1.5" strokeLinecap="round" />
-		<circle cx="12" cy="12" r="9" stroke="#6366F1" strokeWidth="1.5" fill="#EEF2FF" />
-	  </svg>
-	),
-	title: "Toujours accessible",
-	desc: "Retrouvez vos justificatifs partout, sur mobile ou web.",
-  },
-  {
-	icon: (
-	  <svg className="w-8 h-8 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
-		<path d="M8 12l2.5 2.5L16 9" stroke="#6366F1" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-		<rect x="4" y="4" width="16" height="16" rx="4" fill="#EEF2FF" stroke="#6366F1" strokeWidth="1.5" />
-	  </svg>
-	),
-	title: "Remboursements facilités",
-	desc: "Présentez vos factures en un clic pour vos garanties et remboursements.",
-  },
-  {
-	icon: (
-	  <svg className="w-8 h-8 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
-		<path d="M12 17v-1a4 4 0 00-4-4H7a4 4 0 00-4 4v1" stroke="#6366F1" strokeWidth="1.5" strokeLinecap="round" />
-		<circle cx="12" cy="8" r="4" fill="#EEF2FF" stroke="#6366F1" strokeWidth="1.5" />
-	  </svg>
-	),
-	title: "Sérénité assurée",
-	desc: "Protégez votre argent et vos droits de consommateur.",
-  },
-];
+	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+	const features = [
+		{
+			icon: (
+				<svg
+					className="w-8 h-8 text-indigo-600"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke="currentColor"
+					strokeWidth="1.5"
+				>
+					<rect
+						x="3"
+						y="5"
+						width="18"
+						height="14"
+						rx="3"
+						fill="#EEF2FF"
+						stroke="#6366F1"
+						strokeWidth="1.5"
+					/>
+					<path
+						d="M7 9h10M7 13h6"
+						stroke="#6366F1"
+						strokeWidth="1.5"
+						strokeLinecap="round"
+					/>
+					<circle cx="17" cy="13" r="1" fill="#6366F1" />
+				</svg>
+			),
+			title: "Factures sécurisées",
+			desc: "Stockez toutes vos factures dans un espace chiffré et sécurisé.",
+		},
+		{
+			icon: (
+				<svg
+					className="w-8 h-8 text-indigo-600"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke="currentColor"
+					strokeWidth="1.5"
+				>
+					<path
+						d="M12 3v18M21 12H3"
+						stroke="#6366F1"
+						strokeWidth="1.5"
+						strokeLinecap="round"
+					/>
+					<circle
+						cx="12"
+						cy="12"
+						r="9"
+						stroke="#6366F1"
+						strokeWidth="1.5"
+						fill="#EEF2FF"
+					/>
+				</svg>
+			),
+			title: "Toujours accessible",
+			desc: "Retrouvez vos justificatifs partout, sur mobile ou web.",
+		},
+		{
+			icon: (
+				<svg
+					className="w-8 h-8 text-indigo-600"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke="currentColor"
+					strokeWidth="1.5"
+				>
+					<path
+						d="M8 12l2.5 2.5L16 9"
+						stroke="#6366F1"
+						strokeWidth="1.5"
+						strokeLinecap="round"
+						strokeLinejoin="round"
+					/>
+					<rect
+						x="4"
+						y="4"
+						width="16"
+						height="16"
+						rx="4"
+						fill="#EEF2FF"
+						stroke="#6366F1"
+						strokeWidth="1.5"
+					/>
+				</svg>
+			),
+			title: "Remboursements facilités",
+			desc: "Présentez vos factures en un clic pour vos garanties et remboursements.",
+		},
+		{
+			icon: (
+				<svg
+					className="w-8 h-8 text-indigo-600"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke="currentColor"
+					strokeWidth="1.5"
+				>
+					<path
+						d="M12 17v-1a4 4 0 00-4-4H7a4 4 0 00-4 4v1"
+						stroke="#6366F1"
+						strokeWidth="1.5"
+						strokeLinecap="round"
+					/>
+					<circle
+						cx="12"
+						cy="8"
+						r="4"
+						fill="#EEF2FF"
+						stroke="#6366F1"
+						strokeWidth="1.5"
+					/>
+				</svg>
+			),
+			title: "Sérénité assurée",
+			desc: "Protégez votre argent et vos droits de consommateur.",
+		},
+	];
 
 	const faqs = [
 		{
@@ -69,50 +156,104 @@ const features = [
 			{/* Header */}
 			<header className="absolute inset-x-0 top-0 z-50">
 				<nav
+					aria-label="Global"
 					className="flex items-center justify-between p-6 lg:px-8"
-					aria-label="Main"
 				>
-					<div className="flex items-center gap-2">
-						<Image
-							src="/logo_black.png"
-							alt="Guaranty logo"
-							width={40}
-							height={40}
-							className="rounded-xl"
-						/>
-						<span className="font-bold text-xl text-indigo-700 dark:text-indigo-300">
-							Guaranty
-						</span>
+					<div className="flex lg:flex-1">
+						<a href="#" className="-m-1.5 p-1.5">
+							<span className="sr-only">Guaranty</span>
+							<Image
+                width={40}
+                height={40}
+								alt=""
+								src="/logo_black.png"
+								className="h-8 w-auto"
+							/>
+						</a>
+					</div>
+					<div className="flex lg:hidden">
+						<button
+							type="button"
+							onClick={() => setMobileMenuOpen(true)}
+							className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
+						>
+							<span className="sr-only">Open main menu</span>
+							<Bars3Icon aria-hidden="true" className="size-6" />
+						</button>
 					</div>
 					<div className="hidden lg:flex lg:gap-x-12">
-						<a
-							href="#features"
-							className="text-sm font-semibold leading-6 text-gray-700 dark:text-gray-200 hover:text-indigo-600"
-						>
-							Fonctionnalités
-						</a>
-						<a
-							href="#pricing"
-							className="text-sm font-semibold leading-6 text-gray-700 dark:text-gray-200 hover:text-indigo-600"
-						>
-							Tarifs
-						</a>
-						<a
-							href="#faq"
-							className="text-sm font-semibold leading-6 text-gray-700 dark:text-gray-200 hover:text-indigo-600"
-						>
-							FAQ
-						</a>
+						{navigation.map((item) => (
+							<a
+								key={item.name}
+								href={item.href}
+								className="text-sm/6 font-semibold text-gray-900"
+							>
+								{item.name}
+							</a>
+						))}
 					</div>
 					<div className="hidden lg:flex lg:flex-1 lg:justify-end">
 						<a
-							href="/auth/login"
-							className="text-sm font-semibold leading-6 text-indigo-600 hover:text-indigo-800"
+							href="#"
+							className="text-sm/6 font-semibold text-gray-900"
 						>
-							Connexion <span aria-hidden="true">→</span>
+							Log in <span aria-hidden="true">&rarr;</span>
 						</a>
 					</div>
 				</nav>
+				<Dialog
+					open={mobileMenuOpen}
+					onClose={setMobileMenuOpen}
+					className="lg:hidden"
+				>
+					<div className="fixed inset-0 z-50" />
+					<DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+						<div className="flex items-center justify-between">
+							<a href="#" className="-m-1.5 p-1.5">
+								<span className="sr-only">Guaranty</span>
+								<Image
+									alt=""
+									src="/logo_black.png"
+									className="h-8 w-auto"
+								/>
+							</a>
+							<button
+								type="button"
+								onClick={() => setMobileMenuOpen(false)}
+								className="-m-2.5 rounded-md p-2.5 text-gray-700"
+							>
+								<span className="sr-only">Close menu</span>
+								<XMarkIcon
+									aria-hidden="true"
+									className="size-6"
+								/>
+							</button>
+						</div>
+						<div className="mt-6 flow-root">
+							<div className="-my-6 divide-y divide-gray-500/10">
+								<div className="space-y-2 py-6">
+									{navigation.map((item) => (
+										<a
+											key={item.name}
+											href={item.href}
+											className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
+										>
+											{item.name}
+										</a>
+									))}
+								</div>
+								<div className="py-6">
+									<a
+										href="#"
+										className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
+									>
+										Log in
+									</a>
+								</div>
+							</div>
+						</div>
+					</DialogPanel>
+				</Dialog>
 			</header>
 
 			{/* Hero Section */}
@@ -132,58 +273,77 @@ const features = [
 							moment, sur mobile ou web.
 						</p>
 						<div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-			  <a
-				href="https://play.google.com/store/apps/details?id=com.guaranty.app"
-				className="flex items-center justify-center w-48 mt-3 text-white bg-black rounded-lg h-14"
-			  >
-				<div className="mr-3">
-				  <svg
-					viewBox="30 336.7 120.9 129.2"
-					width="30"
-				  >
-					<path
-					  fill="#FFD400"
-					  d="M119.2,421.2c15.3-8.4,27-14.8,28-15.3c3.2-1.7,6.5-6.2,0-9.7  c-2.1-1.1-13.4-7.3-28-15.3l-20.1,20.2L119.2,421.2z"
-					></path>
-					<path
-					  fill="#FF3333"
-					  d="M99.1,401.1l-64.2,64.7c1.5,0.2,3.2-0.2,5.2-1.3  c4.2-2.3,48.8-26.7,79.1-43.3L99.1,401.1L99.1,401.1z"
-					></path>
-					<path
-					  fill="#48FF48"
-					  d="M99.1,401.1l20.1-20.2c0,0-74.6-40.7-79.1-43.1  c-1.7-1-3.6-1.3-5.3-1L99.1,401.1z"
-					></path>
-					<path
-					  fill="#3BCCFF"
-					  d="M99.1,401.1l-64.3-64.3c-2.6,0.6-4.8,2.9-4.8,7.6  c0,7.5,0,107.5,0,113.8c0,4.3,1.7,7.4,4.9,7.7L99.1,401.1z"
-					></path>
-				  </svg>
-				</div>
-				<div>
-				  <div className="text-xs">GET IT ON</div>
-				  <div className="-mt-1 font-sans text-xl font-semibold">
-					Google Play
-				  </div>
-				</div>
-			  </a>
-			  <a
-				href="/auth/login"
-				className="flex items-center justify-center w-48 mt-3 text-white bg-indigo-700 rounded-lg h-14 ml-0 sm:ml-2"
-			  >
-				<div className="mr-3">
-				  <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-					<rect width="30" height="30" rx="6" fill="#fff"/>
-					<path d="M9 15.5C9 13.0147 11.0147 11 13.5 11H16.5C18.9853 11 21 13.0147 21 15.5V19C21 19.5523 20.5523 20 20 20H10C9.44772 20 9 19.5523 9 19V15.5Z" fill="#6366F1"/>
-					<circle cx="15" cy="13" r="2" fill="#6366F1"/>
-				  </svg>
-				</div>
-				<div>
-				  <div className="text-xs">ACCÉDER À</div>
-				  <div className="-mt-1 font-sans text-xl font-semibold">
-					la Web App
-				  </div>
-				</div>
-			  </a>
+							<a
+								href="https://play.google.com/store/apps/details?id=com.guaranty.app"
+								className="flex items-center justify-center w-48 mt-3 text-white bg-black rounded-lg h-14"
+							>
+								<div className="mr-3">
+									<svg
+										viewBox="30 336.7 120.9 129.2"
+										width="30"
+									>
+										<path
+											fill="#FFD400"
+											d="M119.2,421.2c15.3-8.4,27-14.8,28-15.3c3.2-1.7,6.5-6.2,0-9.7  c-2.1-1.1-13.4-7.3-28-15.3l-20.1,20.2L119.2,421.2z"
+										></path>
+										<path
+											fill="#FF3333"
+											d="M99.1,401.1l-64.2,64.7c1.5,0.2,3.2-0.2,5.2-1.3  c4.2-2.3,48.8-26.7,79.1-43.3L99.1,401.1L99.1,401.1z"
+										></path>
+										<path
+											fill="#48FF48"
+											d="M99.1,401.1l20.1-20.2c0,0-74.6-40.7-79.1-43.1  c-1.7-1-3.6-1.3-5.3-1L99.1,401.1z"
+										></path>
+										<path
+											fill="#3BCCFF"
+											d="M99.1,401.1l-64.3-64.3c-2.6,0.6-4.8,2.9-4.8,7.6  c0,7.5,0,107.5,0,113.8c0,4.3,1.7,7.4,4.9,7.7L99.1,401.1z"
+										></path>
+									</svg>
+								</div>
+								<div>
+									<div className="text-xs">GET IT ON</div>
+									<div className="-mt-1 font-sans text-xl font-semibold">
+										Google Play
+									</div>
+								</div>
+							</a>
+							<a
+								href="/auth/login"
+								className="flex items-center justify-center w-48 mt-3 text-white bg-indigo-700 rounded-lg h-14 ml-0 sm:ml-2"
+							>
+								<div className="mr-3">
+									<svg
+										width="30"
+										height="30"
+										viewBox="0 0 30 30"
+										fill="none"
+										xmlns="http://www.w3.org/2000/svg"
+									>
+										<rect
+											width="30"
+											height="30"
+											rx="6"
+											fill="#fff"
+										/>
+										<path
+											d="M9 15.5C9 13.0147 11.0147 11 13.5 11H16.5C18.9853 11 21 13.0147 21 15.5V19C21 19.5523 20.5523 20 20 20H10C9.44772 20 9 19.5523 9 19V15.5Z"
+											fill="#6366F1"
+										/>
+										<circle
+											cx="15"
+											cy="13"
+											r="2"
+											fill="#6366F1"
+										/>
+									</svg>
+								</div>
+								<div>
+									<div className="text-xs">ACCÉDER À</div>
+									<div className="-mt-1 font-sans text-xl font-semibold">
+										la Web App
+									</div>
+								</div>
+							</a>
 						</div>
 					</div>
 					<div className="mt-16 flex justify-center">
