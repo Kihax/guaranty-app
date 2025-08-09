@@ -15,12 +15,11 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-      <head>
-      </head>
+			<head>
+				<link rel="icon" href="/favicon.png" />
+			</head>
 			<body>
-				<ThemeProvider>
-					{children}
-				</ThemeProvider>
+				<ThemeProvider>{children}</ThemeProvider>
 			</body>
 		</html>
 	);

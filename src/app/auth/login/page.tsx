@@ -236,7 +236,7 @@ export default function Login() {
 			<div className="xl:w-1/2 md:w-1/3 w-0 py-5 xl:pl-5 md:pl-2 h-screen ">
 				<Image
 					className="h-full w-full object-cover  rounded-l-2xl"
-					src="/login2.avif"
+					src="/login_big_image.jpg"
 					alt="Cloud with docs"
 					width={900}
 					height={2000}

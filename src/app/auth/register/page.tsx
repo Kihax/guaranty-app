@@ -5,7 +5,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import GoogleButton from "../../lib/GoogleButton";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 
 export default function Register() {
 	const [email, setEmail] = useState("");
@@ -79,6 +79,16 @@ export default function Register() {
 
 	return (
 		<section className="bg-gray-100 flex min-h-screen items-center justify-center overflow-hidden">
+			<div className="xl:w-1/2 md:w-1/3 w-0 py-5 xl:px-5 px-2 h-screen ">
+				<Image
+					className="h-full w-full object-cover  rounded-2xl"
+					src="/login_big_image.jpg"
+					alt="Cloud with docs"
+					width={900}
+					height={2000}
+				/>
+			</div>
+
 			<div className="xl:w-1/2 md:w-2/3 w-full h-screen p-10 flex flex-col justify-center">
 				<div className="sm:mx-auto sm:w-full sm:max-w-sm">
 					<Image
@@ -325,16 +335,6 @@ export default function Register() {
 						/>
 					</div>
 				</div>
-			</div>
-
-			<div className="xl:w-1/2 md:w-1/3 w-0 py-5 xl:px-5 px-2 h-screen ">
-				<Image
-					className="h-full w-full object-cover  rounded-2xl"
-					src="/login2.avif"
-					alt="Cloud with docs"
-					width={900}
-					height={2000}
-				/>
 			</div>
 		</section>
 	);
