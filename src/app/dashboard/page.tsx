@@ -12,6 +12,11 @@ export default function DashboardPage() {
 	>([]);
 
 	useEffect(() => {
+		const storedItems = localStorage.getItem("items");
+		if (storedItems) {
+			setData(JSON.parse(storedItems));
+		}
+
 		async function fetchData() {
 			try {
 				const response = await fetch(
@@ -34,6 +39,7 @@ export default function DashboardPage() {
 				}
 				const result = await response.json();
 				setData(result);
+				localStorage.setItem("items", JSON.stringify(result));
 			} catch (error) {
 				console.error("Failed to fetch data:", error);
 			}
