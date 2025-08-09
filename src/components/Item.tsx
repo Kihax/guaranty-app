@@ -49,7 +49,7 @@ export default function Item({ item, setData }: ItemProps) {
 
 	return (
 		<li
-			className="flex justify-between gap-x-6 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg"
+			className="flex justify-between gap-x-6 p-3 bg-gray-100 dark:bg-gray-800 rounded-lg"
 			key={item.id}
 		>
 			<div className="flex min-w-0 gap-x-4">

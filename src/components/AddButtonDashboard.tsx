@@ -1,6 +1,6 @@
 export default function AddButtonDashboard() {
 	return (
-		<div className="fixed bottom-0 right-0 z-10 bg-white dark:bg-gray-900 py-4 px-6 flex justify-end">
+		<div className="fixed bottom-0 right-0 z-10 py-4 px-6 flex justify-end">
 			<button
 				type="button"
 				onClick={() => (window.location.href = "/dashboard/add")}

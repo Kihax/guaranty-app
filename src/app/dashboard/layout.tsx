@@ -64,7 +64,7 @@ export default function RootLayout({
 						{/* Profil utilisateur */}
 						<div className="flex items-center">
 							<Menu as="div" className="relative ml-3">
-								<Menu.Button className="flex items-center text-sm rounded-xl bg-gray-50 dark:bg-gray-800 focus:outline-none ring-2 ring-gray-50 dark:ring-gray-800 focus:ring-indigo-500 focus:ring-offset-2">
+								<Menu.Button className="flex items-center text-sm rounded-xl bg-gray-100 dark:bg-gray-800 focus:outline-none ring-2 ring-gray-50 dark:ring-gray-800 focus:ring-indigo-500 focus:ring-offset-2">
 									<Image
 										className="h-8 w-8 rounded-xl object-cover"
 										src="/api/profile-image"
