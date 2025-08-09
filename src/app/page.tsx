@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 
+export default function HomePage() {
+
 const features = [
   {
     icon: (
