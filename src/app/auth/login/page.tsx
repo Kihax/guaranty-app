@@ -241,6 +241,10 @@ export default function Login() {
 					width={900}
 					height={2000}
 				/>
+
+				<h2 className="absolute bottom-3 w-full bg-gradient-to-r opacity-50 rounded-2xl text-center">
+					Welcome back to Guaranty
+				</h2>
 			</div>
 		</section>
 	);
