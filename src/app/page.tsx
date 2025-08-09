@@ -1,102 +1,50 @@
+
 import Image from "next/image";
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-indigo-50 to-blue-100 dark:from-gray-900 dark:to-gray-800 p-4">
+      <div className="max-w-3xl w-full flex flex-col items-center gap-8 py-12 px-4 sm:px-8 bg-white/80 dark:bg-gray-900/80 rounded-3xl shadow-xl">
         <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
+          src="/logo.png"
+          alt="Guaranty logo"
+          width={90}
+          height={90}
+          className="mb-2 rounded-2xl shadow-lg"
         />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
+        <h1 className="text-3xl sm:text-4xl font-bold text-center text-indigo-700 dark:text-indigo-300">Guaranty</h1>
+        <p className="text-lg sm:text-xl text-center text-gray-700 dark:text-gray-200 max-w-2xl">
+          Gardez vos factures en sécurité et ne perdez plus jamais vos remboursements ou votre argent !<br />
+          Guaranty vous permet de stocker, retrouver et présenter facilement vos factures, que ce soit sur notre application mobile ou la web app.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4 w-full justify-center">
           <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+            href="https://play.google.com/store/apps/details?id=com.guaranty.app"
             target="_blank"
             rel="noopener noreferrer"
+            className="flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-green-600 hover:bg-green-700 text-white font-semibold text-lg shadow-md transition"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="28" height="28" fill="currentColor"><path d="M325.3 234.3L104.7 28.6C98.2 22.7 89.1 21.7 81.7 26.2c-7.4 4.5-11.2 13.2-9.2 21.4l62.7 242.7 190.1-55.9zm-220.6 62.2l62.7 242.7c2 8.2 11.1 13.1 19.2 10.6 8.2-2.5 13.1-11.1 10.6-19.2l-62.7-242.7-29.8 8.6zm338.2-36.5l-190.1 55.9 220.6 62.2c8.2 2.3 16.7-2.4 19.2-10.6 2.5-8.2-2.4-16.7-10.6-19.2l-39.1-11.3zm-220.6-62.2l190.1-55.9-220.6-62.2c-8.2-2.3-16.7 2.4-19.2 10.6-2.5 8.2 2.4 16.7 10.6 19.2l39.1 11.3z"/></svg>
+            Télécharger sur Google Play
           </a>
           <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/auth/login"
+            className="flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-lg shadow-md transition"
           >
-            Read our docs
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+            Utiliser la Web App
           </a>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+        <ul className="mt-6 text-base text-gray-600 dark:text-gray-300 list-disc list-inside text-left max-w-xl mx-auto">
+          <li>Stockez toutes vos factures en un seul endroit sécurisé</li>
+          <li>Retrouvez vos justificatifs en quelques clics</li>
+          <li>Présentez vos factures pour vos remboursements, même en cas de perte du papier</li>
+          <li>Accessible partout : sur mobile (Android) et sur le web</li>
+          <li>Protégez votre argent et vos droits de consommateur</li>
+        </ul>
+      </div>
+      <footer className="mt-10 text-center text-gray-400 text-sm">
+        &copy; {new Date().getFullYear()} Guaranty. Tous droits réservés.
       </footer>
     </div>
   );
