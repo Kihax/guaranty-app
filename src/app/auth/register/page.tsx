@@ -79,7 +79,7 @@ export default function Register() {
 
 	return (
 		<section className="bg-gray-100 flex min-h-screen items-center justify-center overflow-hidden">
-			<div className="xl:w-1/2 md:w-1/3 w-0 py-5 xl:pr-5 px-2 h-screen fixed ">
+			<div className="xl:w-1/2 md:w-1/3 w-0 py-5 xl:pr-5 px-2 h-screen relative ">
 				<Image
 					className="h-full w-full object-cover  rounded-r-2xl"
 					src="/login_big_image.jpg"
@@ -88,7 +88,7 @@ export default function Register() {
 					height={2000}
 				/>
 
-				<h2 className="absolute bottom-3 w-full bg-gradient-to-r opacity-50 rounded-2xl text-center">
+				<h2 className="absolute bottom-5 w-full bg-white/50 p-3 bg-gradient-to-r rounded-2xl text-center">
 					Start your adventure on Guaranty
 				</h2>
 			</div>

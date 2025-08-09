@@ -233,7 +233,7 @@ export default function Login() {
 				</div>
 			</div>
 
-			<div className="xl:w-1/2 md:w-1/3 w-0 py-5 xl:pl-5 md:pl-2 h-screen ">
+			<div className="xl:w-1/2 md:w-1/3 w-0 py-5 xl:pl-5 md:pl-2 h-screen relative">
 				<Image
 					className="h-full w-full object-cover  rounded-l-2xl"
 					src="/login_big_image.jpg"
@@ -242,7 +242,7 @@ export default function Login() {
 					height={2000}
 				/>
 
-				<h2 className="absolute bottom-3 w-full bg-gradient-to-r opacity-50 rounded-2xl text-center">
+				<h2 className="absolute bottom-5 text-3xl w-full bg-gradient-to-r bg-white/50 p-3 rounded-2xl text-center">
 					Welcome back to Guaranty
 				</h2>
 			</div>
