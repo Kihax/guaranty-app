@@ -212,6 +212,8 @@ export default function HomePage() {
 							<a href="#" className="-m-1.5 p-1.5">
 								<span className="sr-only">Guaranty</span>
 								<Image
+                  width={40}
+                  height={40}
 									alt=""
 									src="/logo_black.png"
 									className="h-8 w-auto"
